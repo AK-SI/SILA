@@ -23,8 +23,6 @@ public class FrmNota extends javax.swing.JDialog {
     private Pelanggan pelanggan= new Pelanggan();
     private ArrayList<DetailTransaksi> listDetail = new ArrayList<>();
     private Transaksi transaksi= new Transaksi();
-    private DefaultTableModel dtmDetail;
-    private String[] tableHeader;
 
     /**
      * Creates new form FrmNota
@@ -32,21 +30,16 @@ public class FrmNota extends javax.swing.JDialog {
     public FrmNota(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        initTabelDetail();
-    }
-
-    private void initTabelDetail(){
-        tableHeader = new String[]{
+        tblDetail.setModel(new DefaultTableModel(null, new String[]{
             "Paket",
             "Jumlah",
             "Total Harga"
-        };
-        dtmDetail = new DefaultTableModel(null, tableHeader);
-        tblDetail.setModel(dtmDetail);
+        }));
     }
     private void refreshIsiTable(){
         listDetail.stream().forEach((d) -> {
             PaketLaundry p=data.getPaketDAO().getPaketById(d.getIdPaket());
+            DefaultTableModel dtmDetail = (DefaultTableModel) tblDetail.getModel();
             dtmDetail.addRow(new Object[]{
                 p.getNamaPaket(),
                 d.getJumlah(),

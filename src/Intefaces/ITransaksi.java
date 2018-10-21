@@ -14,5 +14,6 @@ import java.util.ArrayList;
  */
 public interface ITransaksi {
     public boolean save(Transaksi transaksi);
+    public ArrayList<Transaksi> getTransaksiByIDPelanggan(String idPelanggan);
     public ArrayList<Transaksi> getAll();
 }

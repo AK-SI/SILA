@@ -7,10 +7,7 @@ package Views;
 
 import Factory.Factory;
 import Models.Pelanggan;
-import Views.FrmDashboard;
-import Views.FrmDashboard;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,8 +18,6 @@ public class DFCariPelanggan extends javax.swing.JDialog {
 
     protected FrmTransaksi Tr;
     private Factory data = new Factory();
-    private DefaultTableModel dtmPelanggan;
-    private String[] tableHeader;
     private ArrayList<Pelanggan> listPelanggan;
     /**
      * Creates new form DFCariPelanggan
@@ -34,18 +29,16 @@ public class DFCariPelanggan extends javax.swing.JDialog {
         refreshIsiTable();
     }
     private void initTabelPaket(){
-        tableHeader = new String[]{
+        tblPelanggan.setModel(new DefaultTableModel(null, new String[]{
             "ID",
             "Nama",
             "Telpon",
             "Alamat"
-        };
-        dtmPelanggan = new DefaultTableModel(null, tableHeader);
-        tblPelanggan.setModel(dtmPelanggan);
+        }));
     }
     private void refreshIsiTable(){
         listPelanggan = data.getPelangganDAO().getPelangganByName(txtCari.getText());
-                dtmPelanggan = (DefaultTableModel) tblPelanggan.getModel();
+        DefaultTableModel dtmPelanggan = (DefaultTableModel) tblPelanggan.getModel();
         dtmPelanggan.setRowCount(0);
         
         listPelanggan.stream().forEach((data) -> {

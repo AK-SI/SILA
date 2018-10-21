@@ -5,19 +5,103 @@
  */
 package Views;
 
+import Factory.Factory;
+import Models.DetailTransaksi;
+import Models.PaketLaundry;
+import Models.Pelanggan;
+import Models.Transaksi;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rahmat Subekti
  */
-public class FrmLaporan extends javax.swing.JFrame {
+public class FrmLaporan extends javax.swing.JDialog {
+    protected FrmDashboard dash = new FrmDashboard();
+    private Factory data = new Factory();
+    private ArrayList<Pelanggan> listPelanggan = new ArrayList<>();
+    private ArrayList<Transaksi> listTransaksi = new ArrayList<>();
+    private ArrayList<DetailTransaksi> listDetail = new ArrayList<>();
 
     /**
      * Creates new form FrmLaporan
      */
-    public FrmLaporan() {
+    public FrmLaporan(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
+        initTabel();
     }
 
+    private void initTabel(){
+        tblPelanggan.setModel(new DefaultTableModel(null, 
+            new String[]{
+                "ID",
+                "Nama",
+                "Telpon"
+            }
+        ));
+        tblPelanggan.getColumnModel().getColumn(0).setMinWidth(0);
+        tblPelanggan.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblPelanggan.getColumnModel().getColumn(0).setWidth(0);
+        
+        tblTransaksi.setModel(new DefaultTableModel(null, 
+            new String[]{
+                "ID",
+                "Tanggal",
+                "Total Bayar"
+            }
+        ));
+        
+        tblDetail.setModel(new DefaultTableModel(null, 
+            new String[]{
+                "Paket",
+                "Jumlah",
+                "Total Harga",
+            }
+        ));
+    }
+    
+    private void refreshTabelPelanggan(){
+        listPelanggan = data.getPelangganDAO().getPelangganByName(txtCari.getText());
+        DefaultTableModel dtmPelanggan = (DefaultTableModel) tblPelanggan.getModel();
+        dtmPelanggan.setRowCount(0);
+        
+        listPelanggan.stream().forEach((data) -> {
+            dtmPelanggan.addRow(new Object[]{
+                data.getIdPelanggan(),
+                data.getNama(),
+                data.getNoTelpon()
+            });
+        });
+    }
+    private void refreshTabelTransaksi(String idPelanggan){
+        listTransaksi = data.getTransaksiDAO().getTransaksiByIDPelanggan(idPelanggan);
+        DefaultTableModel dtmTransaksi = (DefaultTableModel) tblTransaksi.getModel();
+        dtmTransaksi.setRowCount(0);
+        
+        listTransaksi.stream().forEach((data) -> {
+            dtmTransaksi.addRow(new Object[]{
+                data.getIdTransaksi(),
+                data.getTanggal(),
+                data.getTotalHarga()
+            });
+        });
+    }
+    private void refreshTabelDetail(String idTransaksi){
+        listDetail = data.getDetailDAO().getDetail(idTransaksi);
+        DefaultTableModel dtmDetail = (DefaultTableModel) tblDetail.getModel();
+        dtmDetail.setRowCount(0);
+        
+        listDetail.stream().forEach((d) -> {
+            PaketLaundry paket = this.data.getPaketDAO().getPaketById(d.getIdPaket());
+            dtmDetail.addRow(new Object[]{
+                paket.getNamaPaket(),
+                d.getJumlah()+" "+paket.getSatuan(),
+                d.getJumlahHarga()
+            });
+        });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +120,12 @@ public class FrmLaporan extends javax.swing.JFrame {
         tblPelanggan = new javax.swing.JTable();
         txtCari = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         tblTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -49,6 +138,11 @@ public class FrmLaporan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTransaksiMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblTransaksi);
 
         tblDetail.setModel(new javax.swing.table.DefaultTableModel(
@@ -75,6 +169,11 @@ public class FrmLaporan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPelangganMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPelanggan);
 
         txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -107,7 +206,7 @@ public class FrmLaporan extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,9 +231,31 @@ public class FrmLaporan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransaksiMouseClicked
+        // TODO add your handling code here:
+        int baris = tblTransaksi.getSelectedRow();
+        String idTransaksi = tblTransaksi.getValueAt(baris, 0).toString();
+        refreshTabelDetail(idTransaksi);
+    }//GEN-LAST:event_tblTransaksiMouseClicked
+
+    private void tblPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPelangganMouseClicked
+        // TODO add your handling code here:
+        int baris = tblPelanggan.getSelectedRow();
+        String idPelanggan = tblPelanggan.getValueAt(baris, 0).toString();
+        refreshTabelTransaksi(idPelanggan);
+        refreshTabelDetail("");
+    }//GEN-LAST:event_tblPelangganMouseClicked
+
     private void txtCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyTyped
         // TODO add your handling code here:
+        refreshTabelPelanggan();
     }//GEN-LAST:event_txtCariKeyTyped
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        this.data=dash.data;
+        refreshTabelPelanggan();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -163,10 +284,17 @@ public class FrmLaporan extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmLaporan().setVisible(true);
+                FrmLaporan dialog = new FrmLaporan(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

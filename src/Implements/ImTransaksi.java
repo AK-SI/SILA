@@ -29,5 +29,16 @@ public class ImTransaksi implements ITransaksi{
     public ArrayList<Transaksi> getAll() {
         return this.listTransaksi;
     }
+
+    @Override
+    public ArrayList<Transaksi> getTransaksiByIDPelanggan(String idPelanggan) {
+        ArrayList<Transaksi> lTransaksi = new ArrayList<>();
+        for (Transaksi t:listTransaksi) {
+            if (t.getIdPelanggan().equals(idPelanggan)) {
+                lTransaksi.add(t);
+            }
+        }
+        return lTransaksi;
+    }
     
 }

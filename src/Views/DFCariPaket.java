@@ -19,8 +19,6 @@ import javax.swing.table.DefaultTableModel;
 public class DFCariPaket extends javax.swing.JDialog {
     protected FrmTransaksi Tr;
     private Factory data = new Factory();
-    private DefaultTableModel dtmPaket;
-    private String[] tableHeader;
     private IPaketLaundry paketDAO;
     private ArrayList<PaketLaundry> listPaket;
 
@@ -30,23 +28,18 @@ public class DFCariPaket extends javax.swing.JDialog {
     public DFCariPaket(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        initTabelPaket();
-        refreshIsiTable();
-    }
-    private void initTabelPaket(){
-        tableHeader = new String[]{
+        tblPaket.setModel(new DefaultTableModel(null, new String[]{
             "ID",
             "Nama",
             "Tarif",
             "Satuan"
-        };
-        dtmPaket = new DefaultTableModel(null, tableHeader);
-        tblPaket.setModel(dtmPaket);
+        }));
+        refreshIsiTable();
     }
     private void refreshIsiTable(){
         paketDAO= data.getPaketDAO();
         listPaket = paketDAO.getPaketByName(txtCari.getText());
-                dtmPaket = (DefaultTableModel) tblPaket.getModel();
+        DefaultTableModel dtmPaket = (DefaultTableModel) tblPaket.getModel();
         dtmPaket.setRowCount(0);
         
         listPaket.stream().forEach((data) -> {
@@ -129,9 +122,9 @@ public class DFCariPaket extends javax.swing.JDialog {
 
     private void tblPaketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPaketMouseClicked
         // TODO add your handling code here:
-        int baris;
-        baris = tblPaket.getSelectedRow();
-        Tr.jumlah = Double.parseDouble(JOptionPane.showInputDialog("Masukkan Jumlah Berat:"));
+        int baris = tblPaket.getSelectedRow();
+        Double jumlah = Double.parseDouble(JOptionPane.showInputDialog("Masukkan Jumlah Berat:"));
+        Tr.jumlah = jumlah;
         Tr.paket = new PaketLaundry(
                 tblPaket.getValueAt(baris, 0).toString(),
                 tblPaket.getValueAt(baris, 1).toString(),

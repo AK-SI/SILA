@@ -103,6 +103,15 @@ public class FrmTransaksi extends javax.swing.JFrame {
             );
             data.getPelangganDAO().save(pelanggan);
         }
+        else
+            pelanggan = new Pelanggan(
+                    txtID.getText(),
+                    txtNama.getText(),
+                    txtTelpon.getText(),
+                    txtAlamat.getText()
+            );
+        
+        
         transaksi = new Transaksi();
         for (DetailTransaksi d:listDetail) {
             d.setIdTransaksi(transaksi.getIdTransaksi());

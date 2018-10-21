@@ -103,6 +103,11 @@ public class FrmDashboard extends javax.swing.JFrame {
         jMenuBar1.add(mnTransaksi);
 
         mnLaporan.setText("Laporan");
+        mnLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnLaporanMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mnLaporan);
 
         setJMenuBar(jMenuBar1);
@@ -129,13 +134,10 @@ public class FrmDashboard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPelanggan)
                     .addComponent(frmPaket))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                        .addComponent(lblTransaksi))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(frmLaporan)))
+                    .addComponent(lblTransaksi, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(frmLaporan, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
 
@@ -161,6 +163,13 @@ public class FrmDashboard extends javax.swing.JFrame {
     private void lblPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPelangganMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_lblPelangganMouseClicked
+
+    private void mnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnLaporanMouseClicked
+        // TODO add your handling code here:
+        FrmLaporan l= new FrmLaporan(null,true);
+        l.dash=this;
+        l.setVisible(true);
+    }//GEN-LAST:event_mnLaporanMouseClicked
 
     /**
      * @param args the command line arguments
