@@ -7,13 +7,14 @@ package Implements;
 
 import Intefaces.IDetailTransaksi;
 import Models.DetailTransaksi;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class ImDetailTransaksi implements IDetailTransaksi{
+public class ImDetailTransaksi implements IDetailTransaksi, Serializable{
 
     private ArrayList<DetailTransaksi> listDetail = new ArrayList<>();
     public ImDetailTransaksi() {

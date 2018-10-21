@@ -15,12 +15,13 @@ import Intefaces.IPelanggan;
 import Intefaces.ITransaksi;
 import Models.DetailTransaksi;
 import Models.Transaksi;
+import java.io.Serializable;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class Factory {
+public class Factory implements Serializable{
     private IPaketLaundry paketDAO;
     private IPelanggan pelangganDAO;
     private ITransaksi transaksiDAO;

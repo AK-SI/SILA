@@ -7,13 +7,14 @@ package Implements;
 
 import Intefaces.ITransaksi;
 import Models.Transaksi;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class ImTransaksi implements ITransaksi{
+public class ImTransaksi implements ITransaksi, Serializable{
     ArrayList<Transaksi> listTransaksi = new ArrayList<>();
 
     public ImTransaksi() {

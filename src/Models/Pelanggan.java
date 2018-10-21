@@ -5,13 +5,14 @@
  */
 package Models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class Pelanggan {
+public class Pelanggan implements Serializable{
     private String idPelanggan;
     private String nama;
     private String noTelpon;

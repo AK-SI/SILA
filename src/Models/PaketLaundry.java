@@ -5,13 +5,14 @@
  */
 package Models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class PaketLaundry {
+public class PaketLaundry implements Serializable{
     private String idPaket;
     private String namaPaket;
     private int tarif;

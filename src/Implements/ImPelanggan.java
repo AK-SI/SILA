@@ -7,13 +7,14 @@ package Implements;
 
 import Intefaces.IPelanggan;
 import Models.Pelanggan;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class ImPelanggan implements IPelanggan {
+public class ImPelanggan implements IPelanggan, Serializable {
     ArrayList<Pelanggan> listPelanggan = new ArrayList<>();
 
     public ImPelanggan() {

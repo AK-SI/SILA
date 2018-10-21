@@ -7,13 +7,14 @@ package Implements;
 
 import Intefaces.IPaketLaundry;
 import Models.PaketLaundry;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class ImPaketLaundry implements IPaketLaundry {
+public class ImPaketLaundry implements IPaketLaundry, Serializable {
 
     private ArrayList<PaketLaundry> listPaket = new ArrayList<>();
 

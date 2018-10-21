@@ -5,6 +5,7 @@
  */
 package Models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
  *
  * @author Rahmat Subekti
  */
-public class Transaksi {
+public class Transaksi implements Serializable{
     private String idTransaksi;
     private String idPelanggan;
     private double totalHarga;

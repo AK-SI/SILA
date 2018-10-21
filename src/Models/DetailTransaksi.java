@@ -5,11 +5,13 @@
  */
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rahmat Subekti
  */
-public class DetailTransaksi {
+public class DetailTransaksi implements Serializable {
     String idTransaksi;
     String idPaket;
     Double jumlah;

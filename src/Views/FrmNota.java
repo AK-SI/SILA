@@ -42,7 +42,7 @@ public class FrmNota extends javax.swing.JDialog {
             DefaultTableModel dtmDetail = (DefaultTableModel) tblDetail.getModel();
             dtmDetail.addRow(new Object[]{
                 p.getNamaPaket(),
-                d.getJumlah(),
+                d.getJumlah()+" "+ p.getSatuan(),
                 d.getJumlahHarga()
             });
         });

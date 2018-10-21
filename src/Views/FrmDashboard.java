@@ -6,7 +6,15 @@
 package Views;
 
 import Factory.Factory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,7 +49,9 @@ public class FrmDashboard extends javax.swing.JFrame {
         
     }
     private void showFrmLaporan(){
-        
+        FrmLaporan l= new FrmLaporan(null,true);
+        l.dash=this;
+        l.setVisible(true);
     }
     
     /**
@@ -58,12 +68,23 @@ public class FrmDashboard extends javax.swing.JFrame {
         lblTransaksi = new javax.swing.JLabel();
         frmLaporan = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        mnPelanggan = new javax.swing.JMenu();
-        mnPaket = new javax.swing.JMenu();
+        mnMaster = new javax.swing.JMenu();
+        mnPelanggan = new javax.swing.JMenuItem();
+        mnPaket = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        mnExit = new javax.swing.JMenuItem();
         mnTransaksi = new javax.swing.JMenu();
         mnLaporan = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lblPelanggan.setText("Pelanggan");
         lblPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,26 +94,54 @@ public class FrmDashboard extends javax.swing.JFrame {
         });
 
         frmPaket.setText("Paket");
+        frmPaket.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                frmPaketMouseClicked(evt);
+            }
+        });
 
         lblTransaksi.setText("Transaksi");
+        lblTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTransaksiMouseClicked(evt);
+            }
+        });
 
         frmLaporan.setText("Laporan");
+        frmLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                frmLaporanMouseClicked(evt);
+            }
+        });
+
+        mnMaster.setText("Master");
 
         mnPelanggan.setText("Pelanggan");
-        mnPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnPelangganMouseClicked(evt);
+        mnPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnPelangganActionPerformed(evt);
             }
         });
-        jMenuBar1.add(mnPelanggan);
+        mnMaster.add(mnPelanggan);
 
         mnPaket.setText("Paket");
-        mnPaket.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnPaketMouseClicked(evt);
+        mnPaket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnPaketActionPerformed(evt);
             }
         });
-        jMenuBar1.add(mnPaket);
+        mnMaster.add(mnPaket);
+        mnMaster.add(jSeparator1);
+
+        mnExit.setText("Exit");
+        mnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnExitActionPerformed(evt);
+            }
+        });
+        mnMaster.add(mnExit);
+
+        jMenuBar1.add(mnMaster);
 
         mnTransaksi.setText("Transaksi");
         mnTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,43 +166,33 @@ public class FrmDashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(199, Short.MAX_VALUE)
+                .addContainerGap(109, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTransaksi)
-                    .addComponent(lblPelanggan))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                    .addComponent(lblPelanggan)
+                    .addComponent(lblTransaksi))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(frmPaket)
-                    .addComponent(frmLaporan))
-                .addContainerGap(235, Short.MAX_VALUE))
+                    .addComponent(frmLaporan)
+                    .addComponent(frmPaket))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(133, Short.MAX_VALUE)
+                .addContainerGap(89, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPelanggan)
-                    .addComponent(frmPaket))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTransaksi, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(frmLaporan, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(frmPaket)
+                    .addComponent(lblPelanggan))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(frmLaporan)
+                    .addComponent(lblTransaksi))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mnPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnPelangganMouseClicked
-        // TODO add your handling code here:
-        showFrmPelanggan();
-    }//GEN-LAST:event_mnPelangganMouseClicked
-
-    private void mnPaketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnPaketMouseClicked
-        // TODO add your handling code here:
-        showFrmPaket();
-    }//GEN-LAST:event_mnPaketMouseClicked
 
     private void mnTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnTransaksiMouseClicked
         // TODO add your handling code here:
@@ -162,14 +201,83 @@ public class FrmDashboard extends javax.swing.JFrame {
 
     private void lblPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPelangganMouseClicked
         // TODO add your handling code here:
+        showFrmPelanggan();
     }//GEN-LAST:event_lblPelangganMouseClicked
 
     private void mnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnLaporanMouseClicked
         // TODO add your handling code here:
-        FrmLaporan l= new FrmLaporan(null,true);
-        l.dash=this;
-        l.setVisible(true);
+        showFrmLaporan();
     }//GEN-LAST:event_mnLaporanMouseClicked
+
+    private void lblTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTransaksiMouseClicked
+        // TODO add your handling code here:
+        showFrmTransaksi();
+    }//GEN-LAST:event_lblTransaksiMouseClicked
+
+    private void frmPaketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frmPaketMouseClicked
+        // TODO add your handling code here:
+        showFrmPaket();
+    }//GEN-LAST:event_frmPaketMouseClicked
+
+    private void frmLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frmLaporanMouseClicked
+        // TODO add your handling code here:
+        showFrmLaporan();
+    }//GEN-LAST:event_frmLaporanMouseClicked
+
+    private void mnPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPelangganActionPerformed
+        // TODO add your handling code here:
+        showFrmPelanggan();
+    }//GEN-LAST:event_mnPelangganActionPerformed
+
+    private void mnPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPaketActionPerformed
+        // TODO add your handling code here:
+        showFrmPaket();
+    }//GEN-LAST:event_mnPaketActionPerformed
+
+    private void mnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExitActionPerformed
+        // TODO add your handling code here:    
+        FrmLogin l= new FrmLogin();
+        l.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mnExitActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            // write object to file
+            FileOutputStream fos = new FileOutputStream("data.laundry");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(data);
+            oos.close();
+	} catch (FileNotFoundException e) {
+            e.printStackTrace();
+	} catch (IOException e) {
+            e.printStackTrace();
+	}
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        if (new File("data.laundry").isFile()) {
+            try {
+                // read object from file
+                FileInputStream fis = new FileInputStream("data.laundry");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                this.data = (Factory) ois.readObject();
+                ois.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Selamat bekerja dengan laundry anda\n"
+                    + "dan kami akan menyimpan semua data\n"
+                    + "yang berguna bagi anda", "Selamat Datang", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -211,11 +319,14 @@ public class FrmDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel frmLaporan;
     private javax.swing.JLabel frmPaket;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblPelanggan;
     private javax.swing.JLabel lblTransaksi;
+    private javax.swing.JMenuItem mnExit;
     private javax.swing.JMenu mnLaporan;
-    private javax.swing.JMenu mnPaket;
-    private javax.swing.JMenu mnPelanggan;
+    private javax.swing.JMenu mnMaster;
+    private javax.swing.JMenuItem mnPaket;
+    private javax.swing.JMenuItem mnPelanggan;
     private javax.swing.JMenu mnTransaksi;
     // End of variables declaration//GEN-END:variables
 }
