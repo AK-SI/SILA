@@ -18,9 +18,9 @@ public class ImPelanggan implements IPelanggan, Serializable {
     ArrayList<Pelanggan> listPelanggan = new ArrayList<>();
 
     public ImPelanggan() {
-        listPelanggan.add(new Pelanggan("adi","081111111111","jl.satu"));
-        listPelanggan.add(new Pelanggan("eko","082222222222","jl.dua"));
-        listPelanggan.add(new Pelanggan("sapto","0833333333","jl.tiga"));
+        listPelanggan.add(new Pelanggan("Fulan","081111111111","jl.satu"));
+        listPelanggan.add(new Pelanggan("Dito","082222222222","jl.dua"));
+        listPelanggan.add(new Pelanggan("Ratno","0833333333","jl.tiga"));
     }
 
     @Override
