@@ -5,9 +5,9 @@
  */
 package Models;
 
+import static Factory.GenId.GenId;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  *
@@ -20,22 +20,18 @@ public class Transaksi implements Serializable{
     private Date tanggal;
 
     public Transaksi(String idPelanggan, String idPaket, double totalHarga) {
-        this.idTransaksi = UUID.randomUUID().toString();
+        this.idTransaksi = "TL"+ GenId();
         this.idPelanggan=idPelanggan;
         this.totalHarga=totalHarga;
         this.tanggal  = new Date();
     }
 
     public Transaksi() {
-        this.idTransaksi = UUID.randomUUID().toString();
+        this.idTransaksi = "TL"+ GenId();
     }
 
     public String getIdTransaksi() {
         return idTransaksi;
-    }
-
-    public void setIdTransaksi() {
-        this.idTransaksi = UUID.randomUUID().toString();
     }
 
     public String getIdPelanggan() {

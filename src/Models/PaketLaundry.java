@@ -5,8 +5,8 @@
  */
 package Models;
 
+import static Factory.GenId.GenId;
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  *
@@ -26,7 +26,7 @@ public class PaketLaundry implements Serializable{
     }
 
     public PaketLaundry(String namaPaket, int tarif, String satuan) {
-        this.idPaket = UUID.randomUUID().toString();
+        this.idPaket = "PA"+ GenId();
         this.namaPaket = namaPaket;
         this.tarif = tarif;
         this.satuan = satuan;

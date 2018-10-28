@@ -5,8 +5,8 @@
  */
 package Models;
 
+import static Factory.GenId.GenId;
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  *
@@ -26,7 +26,7 @@ public class Pelanggan implements Serializable{
     }
 
     public Pelanggan(String nama, String noTelpon, String alamat) {
-        this.idPelanggan = UUID.randomUUID().toString();
+        this.idPelanggan = "PE"+ GenId();
         this.nama = nama;
         this.noTelpon = noTelpon;
         this.alamat = alamat;
