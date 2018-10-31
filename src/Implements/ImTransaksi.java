@@ -41,5 +41,33 @@ public class ImTransaksi implements ITransaksi, Serializable{
         }
         return lTransaksi;
     }
+
+    @Override
+    public boolean delete(String idTransaksi) {
+        int index=-1,i=0,ketemu=0;
+        for(Transaksi p:listTransaksi){
+            if (p.getIdTransaksi().equals(idTransaksi)) {
+                index=i;
+                ketemu=i;
+            }
+            i++;
+        }
+        if (ketemu !=-1){
+            this.listTransaksi.remove(index);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Transaksi getTransaksiByID(String idTransaksi) {
+        for(Transaksi p:listTransaksi){
+            if (p.getIdTransaksi().equals(idTransaksi)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     
 }

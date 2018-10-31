@@ -70,13 +70,12 @@ public class ImPelanggan implements IPelanggan, Serializable {
 
     @Override
     public Pelanggan getPelangganById(String idPelanggan) {
-        Pelanggan pelanggan =new Pelanggan();
         for (Pelanggan p:listPelanggan ) {
             if (idPelanggan.equals(p.getIdPelanggan())) {
-                pelanggan=p;
+                return p;
             }
         }
-        return pelanggan;
+        return null;
     }
 
     @Override

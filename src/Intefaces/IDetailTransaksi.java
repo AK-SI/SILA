@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public interface IDetailTransaksi {
     public boolean save(DetailTransaksi detail);
+    public boolean delete(String idTransaksi);
     public ArrayList<DetailTransaksi> getAll();
     public ArrayList<DetailTransaksi> getDetail(String idTransaksi);
 }

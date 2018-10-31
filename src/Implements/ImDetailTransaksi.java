@@ -42,5 +42,25 @@ public class ImDetailTransaksi implements IDetailTransaksi, Serializable{
     public ArrayList<DetailTransaksi> getAll() {
         return listDetail;
     }
+
+    @Override
+    public boolean delete(String idTransaksi) {
+        int i=0,ketemu=-1;
+        ArrayList<Integer> listIndex = new ArrayList<>();
+        for(DetailTransaksi p:listDetail){
+            if (p.getIdTransaksi().equals(idTransaksi)) {
+                listIndex.add(i);
+                ketemu=i;
+            }
+            i++;
+        }
+        if (ketemu !=-1){
+            for (Object index:listIndex) {
+                this.listDetail.remove((int)index);
+            }
+            return true;
+        }
+        return false;
+    }
     
 }

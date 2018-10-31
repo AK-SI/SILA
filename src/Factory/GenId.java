@@ -16,8 +16,8 @@ public class GenId {
     public static String GenId() {
         Date date = new Date();
         int max = date.getSeconds(), 
-            min =1;
-        int rand =(int)(Math.random()*((max-min)+1))+min;
+            min =1,
+            rand =(int)(Math.random()*((max-min)+1))+min;
         SimpleDateFormat ft = new SimpleDateFormat ("yyDDDSSSSkkmmss");
         return ft.format(date)+(rand<10?rand*10:rand);
     }

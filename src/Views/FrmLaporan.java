@@ -53,6 +53,10 @@ public class FrmLaporan extends javax.swing.JDialog {
             }
         ));
         
+        tblTransaksi.getColumnModel().getColumn(0).setMinWidth(0);
+        tblTransaksi.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblTransaksi.getColumnModel().getColumn(0).setWidth(0);
+        
         tblDetail.setModel(new DefaultTableModel(null, 
             new String[]{
                 "Paket",
@@ -87,6 +91,7 @@ public class FrmLaporan extends javax.swing.JDialog {
                 data.getTotalHarga()
             });
         });
+        
     }
     private void refreshTabelDetail(String idTransaksi){
         listDetail = data.getDetailDAO().getDetail(idTransaksi);

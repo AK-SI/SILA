@@ -72,6 +72,7 @@ public class FrmDashboard extends javax.swing.JFrame {
         mnPelanggan = new javax.swing.JMenuItem();
         mnPaket = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        mnBatalTransaksi = new javax.swing.JMenuItem();
         mnExit = new javax.swing.JMenuItem();
         mnTransaksi = new javax.swing.JMenu();
         mnLaporan = new javax.swing.JMenu();
@@ -114,7 +115,7 @@ public class FrmDashboard extends javax.swing.JFrame {
             }
         });
 
-        mnMaster.setText("Master");
+        mnMaster.setText("Edit");
 
         mnPelanggan.setText("Pelanggan");
         mnPelanggan.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +133,14 @@ public class FrmDashboard extends javax.swing.JFrame {
         });
         mnMaster.add(mnPaket);
         mnMaster.add(jSeparator1);
+
+        mnBatalTransaksi.setText("Pembatalan Transaksi");
+        mnBatalTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBatalTransaksiActionPerformed(evt);
+            }
+        });
+        mnMaster.add(mnBatalTransaksi);
 
         mnExit.setText("Exit");
         mnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -279,6 +288,13 @@ public class FrmDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void mnBatalTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBatalTransaksiActionPerformed
+        // TODO add your handling code here:
+        FrmBatalTransaksi bT = new FrmBatalTransaksi();
+        bT.dash=this;
+        bT.setVisible(true);
+    }//GEN-LAST:event_mnBatalTransaksiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -322,6 +338,7 @@ public class FrmDashboard extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblPelanggan;
     private javax.swing.JLabel lblTransaksi;
+    private javax.swing.JMenuItem mnBatalTransaksi;
     private javax.swing.JMenuItem mnExit;
     private javax.swing.JMenu mnLaporan;
     private javax.swing.JMenu mnMaster;
