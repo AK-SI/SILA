@@ -21,14 +21,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmTransaksi extends javax.swing.JFrame {
 
-    protected Factory data = new Factory();
+    private Factory factory;
     private ITransaksi transaksiDAO;
     private ArrayList<Transaksi> listTransaksi;
     protected ArrayList<DetailTransaksi> listDetail=new ArrayList<>();
     protected Transaksi transaksi;
     protected Pelanggan pelanggan;
     protected PaketLaundry paket;
-    protected FrmDashboard dash;
     protected double jumlah;
     private double totalHarga;
     private DefaultTableModel dtmTransaksi;
@@ -43,6 +42,8 @@ public class FrmTransaksi extends javax.swing.JFrame {
         btnCheckout.setEnabled(false);
         initTableTransaksi();
         initTableDetailTransaksi();
+        factory = new Factory();
+        refreshIsiTable();
     }
     
     private void initTableTransaksi(){
@@ -71,13 +72,13 @@ public class FrmTransaksi extends javax.swing.JFrame {
         tblDetail.getColumnModel().getColumn(0).setWidth(0);
     }
     private void refreshIsiTable(){
-        transaksiDAO = data.getTransaksiDAO();
+        transaksiDAO = factory.getTransaksiDAO();
         listTransaksi = transaksiDAO.getAll();
         dtmTransaksi = (DefaultTableModel) tblTransaksi.getModel();
         dtmTransaksi.setRowCount(0);
         
         listTransaksi.stream().forEach((d) -> {
-            pelanggan = data.getPelangganDAO().getPelangganById(d.getIdPelanggan());            
+            pelanggan = factory.getPelangganDAO().getPelangganById(d.getIdPelanggan());            
             dtmTransaksi.addRow(new Object[]{
                 d.getTanggal(),
                 pelanggan.getNama(),
@@ -101,29 +102,20 @@ public class FrmTransaksi extends javax.swing.JFrame {
                     txtTelpon.getText(),
                     txtAlamat.getText()
             );
-            data.getPelangganDAO().save(pelanggan);
+            factory.getPelangganDAO().save(pelanggan);
         }
-        else
-            pelanggan = new Pelanggan(
-                    txtID.getText(),
-                    txtNama.getText(),
-                    txtTelpon.getText(),
-                    txtAlamat.getText()
-            );
-        
         
         transaksi = new Transaksi();
         for (DetailTransaksi d:listDetail) {
             d.setIdTransaksi(transaksi.getIdTransaksi());
-            data.getDetailDAO().save(d);
+            factory.getDetailDAO().save(d);
         }
         transaksi.setIdPelanggan(pelanggan.getIdPelanggan());
         transaksi.setTotalHarga(totalHarga);
         transaksi.setTanggal();
         transaksiDAO.save(transaksi);
         
-        FrmNota nota = new FrmNota(null,true);
-        nota.Tr=this;
+        FrmNota nota = new FrmNota(this,true);
         nota.setVisible(true);
         
         clearText();
@@ -168,9 +160,6 @@ public class FrmTransaksi extends javax.swing.JFrame {
         setResizable(false);
         setType(java.awt.Window.Type.UTILITY);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
@@ -379,8 +368,7 @@ public class FrmTransaksi extends javax.swing.JFrame {
 
     private void btnPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPelangganActionPerformed
         // TODO add your handling code here:
-        DFCariPelanggan p=new DFCariPelanggan(null,true);
-        p.Tr=this;
+        DFCariPelanggan p=new DFCariPelanggan(this,true);
         p.setVisible(true);
         txtID.setText(pelanggan.getIdPelanggan());
         txtNama.setText(pelanggan.getNama());
@@ -398,22 +386,15 @@ public class FrmTransaksi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-        this.data = dash.data;
-        refreshIsiTable();
-    }//GEN-LAST:event_formWindowActivated
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        dash.data=this.data;
+        factory.Close();
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-        DFCariPaket p=new DFCariPaket(null,true);
-        p.Tr=this;
+        DFCariPaket p=new DFCariPaket(this,true);
         p.setVisible(true);
         double jumlahHarga = this.jumlah * paket.getTarif();
         DetailTransaksi detail = new DetailTransaksi(paket.getIdPaket(),jumlah, jumlahHarga);

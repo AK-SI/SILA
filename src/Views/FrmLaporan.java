@@ -18,11 +18,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Rahmat Subekti
  */
 public class FrmLaporan extends javax.swing.JDialog {
-    protected FrmDashboard dash = new FrmDashboard();
-    private Factory data = new Factory();
-    private ArrayList<Pelanggan> listPelanggan = new ArrayList<>();
-    private ArrayList<Transaksi> listTransaksi = new ArrayList<>();
-    private ArrayList<DetailTransaksi> listDetail = new ArrayList<>();
+    private Factory factory = new Factory();
+    private ArrayList<Pelanggan> listPelanggan;
+    private ArrayList<Transaksi> listTransaksi ;
+    private ArrayList<DetailTransaksi> listDetail;
 
     /**
      * Creates new form FrmLaporan
@@ -31,6 +30,7 @@ public class FrmLaporan extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initTabel();
+        refreshTabelPelanggan();
     }
 
     private void initTabel(){
@@ -67,7 +67,7 @@ public class FrmLaporan extends javax.swing.JDialog {
     }
     
     private void refreshTabelPelanggan(){
-        listPelanggan = data.getPelangganDAO().getPelangganByName(txtCari.getText());
+        listPelanggan = factory.getPelangganDAO().getPelangganByName(txtCari.getText());
         DefaultTableModel dtmPelanggan = (DefaultTableModel) tblPelanggan.getModel();
         dtmPelanggan.setRowCount(0);
         
@@ -80,7 +80,7 @@ public class FrmLaporan extends javax.swing.JDialog {
         });
     }
     private void refreshTabelTransaksi(String idPelanggan){
-        listTransaksi = data.getTransaksiDAO().getTransaksiByIDPelanggan(idPelanggan);
+        listTransaksi = factory.getTransaksiDAO().getTransaksiByIDPelanggan(idPelanggan);
         DefaultTableModel dtmTransaksi = (DefaultTableModel) tblTransaksi.getModel();
         dtmTransaksi.setRowCount(0);
         
@@ -94,12 +94,12 @@ public class FrmLaporan extends javax.swing.JDialog {
         
     }
     private void refreshTabelDetail(String idTransaksi){
-        listDetail = data.getDetailDAO().getDetail(idTransaksi);
+        listDetail = factory.getDetailDAO().getDetail(idTransaksi);
         DefaultTableModel dtmDetail = (DefaultTableModel) tblDetail.getModel();
         dtmDetail.setRowCount(0);
         
         listDetail.stream().forEach((d) -> {
-            PaketLaundry paket = this.data.getPaketDAO().getPaketById(d.getIdPaket());
+            PaketLaundry paket = this.factory.getPaketDAO().getPaketById(d.getIdPaket());
             dtmDetail.addRow(new Object[]{
                 paket.getNamaPaket(),
                 d.getJumlah()+" "+paket.getSatuan(),
@@ -126,11 +126,6 @@ public class FrmLaporan extends javax.swing.JDialog {
         txtCari = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         tblTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -256,12 +251,6 @@ public class FrmLaporan extends javax.swing.JDialog {
         // TODO add your handling code here:
         refreshTabelPelanggan();
     }//GEN-LAST:event_txtCariKeyTyped
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-        this.data=dash.data;
-        refreshTabelPelanggan();
-    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

@@ -5,14 +5,8 @@
  */
 package Views;
 
-import Factory.Factory;
+import Implements.ImLaundry;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -21,7 +15,6 @@ import javax.swing.JOptionPane;
  * @author Rahmat Subekti
  */
 public class FrmDashboard extends javax.swing.JFrame {
-    protected Factory data = new Factory();
 
     /**
      * Creates new form FrmDashboars
@@ -32,25 +25,21 @@ public class FrmDashboard extends javax.swing.JFrame {
     }
     private void showFrmPelanggan(){
         FrmPelanggan p = new FrmPelanggan();
-        p.dash=this;
         p.setVisible(true);
         
     }
     private void showFrmPaket(){
         FrmPaket p = new FrmPaket();
-        p.dash=this;
         p.setVisible(true);
         
     }
     private void showFrmTransaksi(){
         FrmTransaksi t= new FrmTransaksi();
-        t.dash=this;
         t.setVisible(true);
         
     }
     private void showFrmLaporan(){
         FrmLaporan l= new FrmLaporan(null,true);
-        l.dash=this;
         l.setVisible(true);
     }
     
@@ -79,9 +68,6 @@ public class FrmDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -250,50 +236,21 @@ public class FrmDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mnExitActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        try {
-            // write object to file
-            FileOutputStream fos = new FileOutputStream("data.laundry");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(data);
-            oos.close();
-	} catch (FileNotFoundException e) {
-            e.printStackTrace();
-	} catch (IOException e) {
-            e.printStackTrace();
-	}
-    }//GEN-LAST:event_formWindowClosing
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        if (new File("data.laundry").isFile()) {
-            try {
-                // read object from file
-                FileInputStream fis = new FileInputStream("data.laundry");
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                this.data = (Factory) ois.readObject();
-                ois.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Selamat bekerja dengan laundry anda\n"
-                    + "dan kami akan menyimpan semua data\n"
-                    + "yang berguna bagi anda", "Selamat Datang", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_formWindowOpened
-
     private void mnBatalTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBatalTransaksiActionPerformed
         // TODO add your handling code here:
         FrmBatalTransaksi bT = new FrmBatalTransaksi();
-        bT.dash=this;
         bT.setVisible(true);
     }//GEN-LAST:event_mnBatalTransaksiActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        if (!new ImLaundry().isLaundry()) {
+            JOptionPane.showMessageDialog(this, 
+                    "Selamat bekerja di laundry anda dan kami akan merekam semua data"
+                            + " yang anda perlukan", "Selamat Datang", 
+                            JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

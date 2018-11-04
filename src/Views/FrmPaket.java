@@ -19,8 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmPaket extends javax.swing.JFrame {
 
-    private Factory data = new Factory();
-    protected FrmDashboard dash;
+    private Factory factory = new Factory();
     private boolean newRecord, needSave,status=false;
     private DefaultTableModel dtmPaket;
     private String[] tableHeader;
@@ -48,6 +47,8 @@ public class FrmPaket extends javax.swing.JFrame {
             }
         });
         btnSimpan.setEnabled(false);
+        factory = new Factory();
+        refreshIsiTable();
     }
 
     private void initTablePaket() {
@@ -61,7 +62,7 @@ public class FrmPaket extends javax.swing.JFrame {
         tblPaket.setModel(dtmPaket);
     }
     private void refreshIsiTable() {
-        paketDAO = data.getPaketDAO();
+        paketDAO = factory.getPaketDAO();
         listPaket = paketDAO.getAll();
         dtmPaket = (DefaultTableModel) tblPaket.getModel();
         dtmPaket.setRowCount(0);
@@ -160,9 +161,6 @@ public class FrmPaket extends javax.swing.JFrame {
         setResizable(false);
         setType(java.awt.Window.Type.UTILITY);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
@@ -312,7 +310,7 @@ public class FrmPaket extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        dash.data=this.data;
+        factory.Close();
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
 
@@ -343,7 +341,7 @@ public class FrmPaket extends javax.swing.JFrame {
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here: 
         isSaved();
-        if (data.isUsed(txtID.getText())) {
+        if (factory.isUsed(txtID.getText())) {
             JOptionPane.showMessageDialog(null, 
                     txtNama.getText() + " Sedang digunakan.", 
                     "Tidak dihapus.",
@@ -364,12 +362,6 @@ public class FrmPaket extends javax.swing.JFrame {
         // TODO add your handling code here:
         saveRecord();
     }//GEN-LAST:event_btnSimpanActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-        this.data=dash.data;
-        refreshIsiTable();
-    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

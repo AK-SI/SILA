@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DFCariPelanggan extends javax.swing.JDialog {
 
-    protected FrmTransaksi Tr;
+    private FrmTransaksi Tr;
     private Factory data = new Factory();
     private ArrayList<Pelanggan> listPelanggan;
     /**
@@ -26,6 +26,7 @@ public class DFCariPelanggan extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initTabelPaket();
+        this.Tr = (FrmTransaksi)parent;
         refreshIsiTable();
     }
     private void initTabelPaket(){
@@ -140,7 +141,6 @@ public class DFCariPelanggan extends javax.swing.JDialog {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        this.data = Tr.data;
         refreshIsiTable();
     }//GEN-LAST:event_formWindowActivated
 

@@ -5,33 +5,32 @@
  */
 package Factory;
 
-import Implements.ImDetailTransaksi;
-import Implements.ImPaketLaundry;
-import Implements.ImPelanggan;
-import Implements.ImTransaksi;
+import Implements.ImLaundry;
+import Models.Laundry;
 import Intefaces.IDetailTransaksi;
 import Intefaces.IPaketLaundry;
 import Intefaces.IPelanggan;
 import Intefaces.ITransaksi;
 import Models.DetailTransaksi;
 import Models.Transaksi;
-import java.io.Serializable;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class Factory implements Serializable{
+public class Factory{
+    private Laundry data;
     private IPaketLaundry paketDAO;
     private IPelanggan pelangganDAO;
     private ITransaksi transaksiDAO;
     private IDetailTransaksi detailDAO;
 
     public Factory() {
-        this.paketDAO = new ImPaketLaundry();
-        this.pelangganDAO = new ImPelanggan();
-        this.transaksiDAO = new ImTransaksi();
-        this.detailDAO = new ImDetailTransaksi();
+        this.data= new ImLaundry().Read();
+        this.paketDAO = data.getPaket();
+        this.pelangganDAO = data.getPelanggan();
+        this.transaksiDAO = data.getTransaksi();
+        this.detailDAO = data.getDetail();
     }
 
     public IDetailTransaksi getDetailDAO() {
@@ -57,5 +56,9 @@ public class Factory implements Serializable{
             if (id.equals(t.getIdPelanggan())) dipake=true;
         }
         return dipake;
+    }
+    
+    public void Close(){
+        new ImLaundry().Save(data);
     }
 }

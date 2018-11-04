@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
  * @author Rahmat Subekti
  */
 public class FrmBatalTransaksi extends javax.swing.JFrame {
-    protected FrmDashboard dash = new FrmDashboard();
-    private Factory data = new Factory();
+    private Factory factory;
     /**
      * Creates new form FrmBatalTransaksi
      */
     public FrmBatalTransaksi() {
         initComponents();
+        factory = new Factory();
     }
 
     /**
@@ -40,9 +40,6 @@ public class FrmBatalTransaksi extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
@@ -104,28 +101,23 @@ public class FrmBatalTransaksi extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
-        dash.data=this.data;
+        factory.Close();
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-        this.data = dash.data;
-    }//GEN-LAST:event_formWindowActivated
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         // TODO add your handling code here:
         String id = txtID.getText();
-        Transaksi transaksi = data.getTransaksiDAO().getTransaksiByID(id);
+        Transaksi transaksi = factory.getTransaksiDAO().getTransaksiByID(id);
         if (transaksi != null) {
             String tanggalTransaksi = transaksi.getTanggal().toString(),
                     idPelanggan = transaksi.getIdPelanggan(),
-                    namaPelanggan = data.getPelangganDAO().getPelangganById(idPelanggan).getNama();
+                    namaPelanggan = factory.getPelangganDAO().getPelangganById(idPelanggan).getNama();
             if (JOptionPane.showConfirmDialog(this, "Hapus Transaksi pelanggan "+namaPelanggan+
                     " pada tanggal "+ tanggalTransaksi + "?", 
                     "Batalkan", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-                data.getDetailDAO().delete(id);
-                data.getTransaksiDAO().delete(id);
+                factory.getDetailDAO().delete(id);
+                factory.getTransaksiDAO().delete(id);
             }
         }else{
             JOptionPane.showMessageDialog(this, "Transaksi dengan id:"+id+" tidak ditemukan atau telah dihapus");

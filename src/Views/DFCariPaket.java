@@ -17,8 +17,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Rahmat Subekti
  */
 public class DFCariPaket extends javax.swing.JDialog {
-    protected FrmTransaksi Tr;
-    private Factory data = new Factory();
+    private FrmTransaksi Tr;
+    private Factory factory = new Factory();
     private IPaketLaundry paketDAO;
     private ArrayList<PaketLaundry> listPaket;
 
@@ -34,10 +34,11 @@ public class DFCariPaket extends javax.swing.JDialog {
             "Tarif",
             "Satuan"
         }));
+        this.Tr = (FrmTransaksi) parent;
         refreshIsiTable();
     }
     private void refreshIsiTable(){
-        paketDAO= data.getPaketDAO();
+        paketDAO= factory.getPaketDAO();
         listPaket = paketDAO.getPaketByName(txtCari.getText());
         DefaultTableModel dtmPaket = (DefaultTableModel) tblPaket.getModel();
         dtmPaket.setRowCount(0);
@@ -65,11 +66,6 @@ public class DFCariPaket extends javax.swing.JDialog {
         txtCari = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         tblPaket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,12 +135,6 @@ public class DFCariPaket extends javax.swing.JDialog {
         // TODO add your handling code here:
         refreshIsiTable();
     }//GEN-LAST:event_txtCariKeyTyped
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-        this.data = Tr.data;
-        refreshIsiTable();
-    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

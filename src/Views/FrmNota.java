@@ -18,8 +18,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Rahmat Subekti
  */
 public class FrmNota extends javax.swing.JDialog {
-    protected FrmTransaksi Tr= new FrmTransaksi();
-    private Factory data= new Factory();
+    private FrmTransaksi Tr;
+    private Factory factory;
     private Pelanggan pelanggan= new Pelanggan();
     private ArrayList<DetailTransaksi> listDetail = new ArrayList<>();
     private Transaksi transaksi= new Transaksi();
@@ -35,10 +35,13 @@ public class FrmNota extends javax.swing.JDialog {
             "Jumlah",
             "Total Harga"
         }));
+        Tr=(FrmTransaksi)parent;
+        factory= new Factory();
+        printNota();
     }
     private void refreshIsiTable(){
         listDetail.stream().forEach((d) -> {
-            PaketLaundry p=data.getPaketDAO().getPaketById(d.getIdPaket());
+            PaketLaundry p=factory.getPaketDAO().getPaketById(d.getIdPaket());
             DefaultTableModel dtmDetail = (DefaultTableModel) tblDetail.getModel();
             dtmDetail.addRow(new Object[]{
                 p.getNamaPaket(),
@@ -46,6 +49,17 @@ public class FrmNota extends javax.swing.JDialog {
                 d.getJumlahHarga()
             });
         });
+    }
+    private void printNota(){
+        this.transaksi=Tr.transaksi;
+        this.pelanggan=Tr.pelanggan;
+        this.listDetail=Tr.listDetail;
+        txtNota.setText(transaksi.getIdTransaksi());
+        txtNama.setText(pelanggan.getNama());
+        txtAlamat.setText(pelanggan.getAlamat());
+        txtTelpon.setText(pelanggan.getNoTelpon());
+        txtTotal.setText("Rp. " +transaksi.getTotalHarga());
+        refreshIsiTable();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,11 +96,6 @@ public class FrmNota extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         tblDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -276,20 +285,6 @@ public class FrmNota extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
-        this.data=Tr.data;
-        this.transaksi=Tr.transaksi;
-        this.pelanggan=Tr.pelanggan;
-        this.listDetail=Tr.listDetail;
-        txtNota.setText(transaksi.getIdTransaksi());
-        txtNama.setText(pelanggan.getNama());
-        txtAlamat.setText(pelanggan.getAlamat());
-        txtTelpon.setText(pelanggan.getNoTelpon());
-        txtTotal.setText("Rp. " +transaksi.getTotalHarga());
-        refreshIsiTable();
-    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
