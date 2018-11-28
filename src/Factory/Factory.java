@@ -48,7 +48,7 @@ public class Factory{
     public ITransaksi getTransaksiDAO() {
         return transaksiDAO;
     }
-    public boolean isUsed(String id){
+    public boolean isUsed(Long id){
         boolean dipake=false;
         for (Transaksi t:transaksiDAO.getAll()) {
             for (DetailTransaksi d:detailDAO.getAll())

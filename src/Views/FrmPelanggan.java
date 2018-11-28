@@ -321,7 +321,7 @@ public class FrmPelanggan extends javax.swing.JFrame {
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:        
         isSaved();
-        if (factory.isUsed(txtId.getText())) {
+        if (factory.isUsed(Long.parseLong(txtId.getText()))) {
             JOptionPane.showMessageDialog(null, 
                     txtNama.getText() + " Sedang digunakan.", 
                     "Tidak dihapus.",
