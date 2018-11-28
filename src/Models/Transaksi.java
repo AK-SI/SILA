@@ -5,40 +5,32 @@
  */
 package Models;
 
-import static Factory.GenId.GenId;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Rahmat Subekti
  */
-public class Transaksi implements Serializable{
-    private String idTransaksi;
-    private String idPelanggan;
+public class Transaksi extends ModelBase{
+    private Long idPelanggan;
     private double totalHarga;
     private Date tanggal;
 
-    public Transaksi(String idPelanggan, String idPaket, double totalHarga) {
-        this.idTransaksi = "TL"+ GenId();
+    public Transaksi(Long idPelanggan, String idPaket, double totalHarga) {
         this.idPelanggan=idPelanggan;
         this.totalHarga=totalHarga;
         this.tanggal  = new Date();
     }
 
     public Transaksi() {
-        this.idTransaksi = "TL"+ GenId();
+        super();
     }
 
-    public String getIdTransaksi() {
-        return idTransaksi;
-    }
-
-    public String getIdPelanggan() {
+    public Long getIdPelanggan() {
         return idPelanggan;
     }
 
-    public void setIdPelanggan(String idPelanggan) {
+    public void setIdPelanggan(Long idPelanggan) {
         this.idPelanggan = idPelanggan;
     }
 

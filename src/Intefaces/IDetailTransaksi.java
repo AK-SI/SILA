@@ -12,9 +12,6 @@ import java.util.ArrayList;
  *
  * @author Rahmat Subekti
  */
-public interface IDetailTransaksi {
-    public boolean save(DetailTransaksi detail);
-    public boolean delete(String idTransaksi);
-    public ArrayList<DetailTransaksi> getAll();
-    public ArrayList<DetailTransaksi> getDetail(String idTransaksi);
+public interface IDetailTransaksi extends IBase<DetailTransaksi> {
+    public ArrayList<DetailTransaksi> getDetail(Long idTransaksi);
 }

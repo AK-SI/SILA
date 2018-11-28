@@ -12,10 +12,6 @@ import java.util.ArrayList;
  *
  * @author Rahmat Subekti
  */
-public interface ITransaksi {
-    public boolean save(Transaksi transaksi);
-    public boolean delete(String idTransaksi);
-    public Transaksi getTransaksiByID(String idTransaksi);
-    public ArrayList<Transaksi> getTransaksiByIDPelanggan(String idPelanggan);
-    public ArrayList<Transaksi> getAll();
+public interface ITransaksi extends IBase<Transaksi>{
+    public ArrayList<Transaksi> getTransaksiByIDPelanggan(Long idPelanggan);
 }

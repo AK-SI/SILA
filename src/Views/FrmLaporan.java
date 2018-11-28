@@ -73,33 +73,33 @@ public class FrmLaporan extends javax.swing.JDialog {
         
         listPelanggan.stream().forEach((data) -> {
             dtmPelanggan.addRow(new Object[]{
-                data.getIdPelanggan(),
+                data.getId(),
                 data.getNama(),
                 data.getNoTelpon()
             });
         });
     }
-    private void refreshTabelTransaksi(String idPelanggan){
+    private void refreshTabelTransaksi(Long idPelanggan){
         listTransaksi = factory.getTransaksiDAO().getTransaksiByIDPelanggan(idPelanggan);
         DefaultTableModel dtmTransaksi = (DefaultTableModel) tblTransaksi.getModel();
         dtmTransaksi.setRowCount(0);
         
         listTransaksi.stream().forEach((data) -> {
             dtmTransaksi.addRow(new Object[]{
-                data.getIdTransaksi(),
+                data.getId(),
                 data.getTanggal(),
                 data.getTotalHarga()
             });
         });
         
     }
-    private void refreshTabelDetail(String idTransaksi){
+    private void refreshTabelDetail(Long idTransaksi){
         listDetail = factory.getDetailDAO().getDetail(idTransaksi);
         DefaultTableModel dtmDetail = (DefaultTableModel) tblDetail.getModel();
         dtmDetail.setRowCount(0);
         
         listDetail.stream().forEach((d) -> {
-            PaketLaundry paket = this.factory.getPaketDAO().getPaketById(d.getIdPaket());
+            PaketLaundry paket = this.factory.getPaketDAO().getById(d.getIdPaket());
             dtmDetail.addRow(new Object[]{
                 paket.getNamaPaket(),
                 d.getJumlah()+" "+paket.getSatuan(),
@@ -235,16 +235,16 @@ public class FrmLaporan extends javax.swing.JDialog {
     private void tblTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransaksiMouseClicked
         // TODO add your handling code here:
         int baris = tblTransaksi.getSelectedRow();
-        String idTransaksi = tblTransaksi.getValueAt(baris, 0).toString();
+        Long idTransaksi = Long.parseLong(tblTransaksi.getValueAt(baris, 0).toString());
         refreshTabelDetail(idTransaksi);
     }//GEN-LAST:event_tblTransaksiMouseClicked
 
     private void tblPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPelangganMouseClicked
         // TODO add your handling code here:
         int baris = tblPelanggan.getSelectedRow();
-        String idPelanggan = tblPelanggan.getValueAt(baris, 0).toString();
+        Long idPelanggan = Long.parseLong(tblPelanggan.getValueAt(baris, 0).toString());
         refreshTabelTransaksi(idPelanggan);
-        refreshTabelDetail("");
+        refreshTabelDetail(0L);
     }//GEN-LAST:event_tblPelangganMouseClicked
 
     private void txtCariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyTyped

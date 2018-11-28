@@ -77,7 +77,7 @@ public class FrmPelanggan extends javax.swing.JFrame {
             newRecord = false;
         }else{
             pelanggan= new Pelanggan(
-                    txtId.getText(),
+                    Long.parseLong(txtId.getText()),
                     txtNama.getText(),
                     txtTelpon.getText(),
                     txtAlamat.getText()
@@ -118,7 +118,7 @@ public class FrmPelanggan extends javax.swing.JFrame {
         
         for (Pelanggan d:listPelanggan) {
             dtmPelanggan.addRow(new Object[]{
-                d.getIdPelanggan(),
+                d.getId(),
                 d.getNama(),
                 d.getNoTelpon(),
                 d.getAlamat()
@@ -331,7 +331,7 @@ public class FrmPelanggan extends javax.swing.JFrame {
                     " akan di hapus. Lanjutkan?",
                     "Konfirmasi Hapus " + txtNama.getText(),
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                pelangganDAO.delete(txtId.getText());
+                pelangganDAO.delete(Long.parseLong(txtId.getText()));
         }
         btnHapus.setEnabled(false);
         refreshIsiTable();

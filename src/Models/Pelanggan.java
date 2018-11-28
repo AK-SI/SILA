@@ -5,40 +5,32 @@
  */
 package Models;
 
-import static Factory.GenId.GenId;
-import java.io.Serializable;
-
 /**
  *
  * @author Rahmat Subekti
  */
-public class Pelanggan implements Serializable{
-    private String idPelanggan;
+public class Pelanggan extends ModelBase{
     private String nama;
     private String noTelpon;
     private String alamat;
 
-    public Pelanggan(String idPelanggan, String nama, String noTelpon, String alamat) {
-        this.idPelanggan = idPelanggan;
-        this.nama = nama;
-        this.noTelpon = noTelpon;
-        this.alamat = alamat;
-    }
-
-    public Pelanggan(String nama, String noTelpon, String alamat) {
-        this.idPelanggan = "PE"+ GenId();
-        this.nama = nama;
-        this.noTelpon = noTelpon;
-        this.alamat = alamat;
-    }
-
     public Pelanggan() {
     }
 
-    public String getIdPelanggan() {
-        return idPelanggan;
+    public Pelanggan(String nama, String noTelpon, String alamat) {
+        super();
+        this.nama = nama;
+        this.noTelpon = noTelpon;
+        this.alamat = alamat;
     }
 
+    public Pelanggan(Long id,String nama, String noTelpon, String alamat) {
+        super(id);
+        this.nama = nama;
+        this.noTelpon = noTelpon;
+        this.alamat = alamat;
+    }
+    
     public String getNama() {
         return nama;
     }
@@ -62,6 +54,4 @@ public class Pelanggan implements Serializable{
     public void setAlamat(String alamat) {
         this.alamat = alamat;
     }
-    
-    
 }

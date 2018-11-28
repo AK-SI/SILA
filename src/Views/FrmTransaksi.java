@@ -78,7 +78,7 @@ public class FrmTransaksi extends javax.swing.JFrame {
         dtmTransaksi.setRowCount(0);
         
         listTransaksi.stream().forEach((d) -> {
-            pelanggan = factory.getPelangganDAO().getPelangganById(d.getIdPelanggan());            
+            pelanggan = factory.getPelangganDAO().getById(d.getIdPelanggan());            
             dtmTransaksi.addRow(new Object[]{
                 d.getTanggal(),
                 pelanggan.getNama(),
@@ -107,10 +107,10 @@ public class FrmTransaksi extends javax.swing.JFrame {
         
         transaksi = new Transaksi();
         for (DetailTransaksi d:listDetail) {
-            d.setIdTransaksi(transaksi.getIdTransaksi());
+            d.setIdTransaksi(transaksi.getId());
             factory.getDetailDAO().save(d);
         }
-        transaksi.setIdPelanggan(pelanggan.getIdPelanggan());
+        transaksi.setIdPelanggan(pelanggan.getId());
         transaksi.setTotalHarga(totalHarga);
         transaksi.setTanggal();
         transaksiDAO.save(transaksi);
@@ -370,7 +370,7 @@ public class FrmTransaksi extends javax.swing.JFrame {
         // TODO add your handling code here:
         DFCariPelanggan p=new DFCariPelanggan(this,true);
         p.setVisible(true);
-        txtID.setText(pelanggan.getIdPelanggan());
+        txtID.setText(pelanggan.getId().toString());
         txtNama.setText(pelanggan.getNama());
         txtTelpon.setText(pelanggan.getNoTelpon());
         txtAlamat.setText(pelanggan.getAlamat());
@@ -397,10 +397,10 @@ public class FrmTransaksi extends javax.swing.JFrame {
         DFCariPaket p=new DFCariPaket(this,true);
         p.setVisible(true);
         double jumlahHarga = this.jumlah * paket.getTarif();
-        DetailTransaksi detail = new DetailTransaksi(paket.getIdPaket(),jumlah, jumlahHarga);
+        DetailTransaksi detail = new DetailTransaksi(paket.getId(),jumlah, jumlahHarga);
         listDetail.add(detail);
         dtmDetail.addRow(new Object[]{
-            paket.getIdPaket(),
+            paket.getId(),
             paket.getNamaPaket(),
             jumlah,
             paket.getSatuan(),

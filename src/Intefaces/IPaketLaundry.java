@@ -12,11 +12,6 @@ import java.util.ArrayList;
  *
  * @author Rahmat Subekti
  */
-public interface IPaketLaundry {
-    public boolean save(PaketLaundry paket);
-    public boolean delete(String idPaket);
-    public boolean update(PaketLaundry paket);
-    public PaketLaundry getPaketById(String idPaket);
+public interface IPaketLaundry extends IBase<PaketLaundry>{
     public ArrayList<PaketLaundry> getPaketByName(String namaPaket);
-    public ArrayList<PaketLaundry> getAll();
 }

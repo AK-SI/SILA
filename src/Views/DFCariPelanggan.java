@@ -44,7 +44,7 @@ public class DFCariPelanggan extends javax.swing.JDialog {
         
         listPelanggan.stream().forEach((data) -> {
             dtmPelanggan.addRow(new Object[]{
-                data.getIdPelanggan(),
+                data.getId(),
                 data.getNama(),
                 data.getNoTelpon(),
                 data.getAlamat()
@@ -131,7 +131,7 @@ public class DFCariPelanggan extends javax.swing.JDialog {
         int baris;
         baris = tblPelanggan.getSelectedRow();
         Tr.pelanggan = new Pelanggan(
-                tblPelanggan.getValueAt(baris, 0).toString(),
+                Long.parseLong(tblPelanggan.getValueAt(baris, 0).toString()),
                 tblPelanggan.getValueAt(baris, 1).toString(),
                 tblPelanggan.getValueAt(baris, 2).toString(),
                 tblPelanggan.getValueAt(baris, 3).toString()

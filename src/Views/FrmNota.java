@@ -41,7 +41,7 @@ public class FrmNota extends javax.swing.JDialog {
     }
     private void refreshIsiTable(){
         listDetail.stream().forEach((d) -> {
-            PaketLaundry p=factory.getPaketDAO().getPaketById(d.getIdPaket());
+            PaketLaundry p=factory.getPaketDAO().getById(d.getIdPaket());
             DefaultTableModel dtmDetail = (DefaultTableModel) tblDetail.getModel();
             dtmDetail.addRow(new Object[]{
                 p.getNamaPaket(),
@@ -54,7 +54,7 @@ public class FrmNota extends javax.swing.JDialog {
         this.transaksi=Tr.transaksi;
         this.pelanggan=Tr.pelanggan;
         this.listDetail=Tr.listDetail;
-        txtNota.setText(transaksi.getIdTransaksi());
+        txtNota.setText(transaksi.getId().toString());
         txtNama.setText(pelanggan.getNama());
         txtAlamat.setText(pelanggan.getAlamat());
         txtTelpon.setText(pelanggan.getNoTelpon());

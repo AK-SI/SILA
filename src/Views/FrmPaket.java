@@ -69,7 +69,7 @@ public class FrmPaket extends javax.swing.JFrame {
         
         for (PaketLaundry d:listPaket) {
             dtmPaket.addRow(new Object[]{
-                d.getIdPaket(),
+                d.getId(),
                 d.getNamaPaket(),
                 d.getTarif(),
                 d.getSatuan()
@@ -93,7 +93,7 @@ public class FrmPaket extends javax.swing.JFrame {
             newRecord = false;
         }else{
             paket= new PaketLaundry(
-                    txtID.getText(),
+                    Long.parseLong(txtID.getText()),
                     txtNama.getText(),
                     Integer.parseInt(txtTarif.getText()),
                     txtSatuan.getText()
@@ -352,7 +352,7 @@ public class FrmPaket extends javax.swing.JFrame {
                     " akan di hapus. Lanjutkan?",
                     "Konfirmasi Hapus " + txtNama.getText(),
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                paketDAO.delete(txtID.getText());
+                paketDAO.delete(Long.parseLong(txtID.getText()));
         }
         btnHapus.setEnabled(false);
         refreshIsiTable();

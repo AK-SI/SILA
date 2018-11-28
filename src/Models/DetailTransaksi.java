@@ -5,37 +5,35 @@
  */
 package Models;
 
-import java.io.Serializable;
-
 /**
  *
  * @author Rahmat Subekti
  */
-public class DetailTransaksi implements Serializable {
-    String idTransaksi;
-    String idPaket;
+public class DetailTransaksi extends ModelBase {
+    Long idTransaksi;
+    Long idPaket;
     Double jumlah;
     Double jumlahHarga;
 
-    public DetailTransaksi(String idPaket, Double jumlah, Double jumlahHarga) {
+    public DetailTransaksi(Long idPaket, Double jumlah, Double jumlahHarga) {
         this.idPaket = idPaket;
         this.jumlah = jumlah;
         this.jumlahHarga = jumlahHarga;
     }
 
-    public String getIdTransaksi() {
+    public Long getIdTransaksi() {
         return idTransaksi;
     }
 
-    public void setIdTransaksi(String idTransaksi) {
+    public void setIdTransaksi(Long idTransaksi) {
         this.idTransaksi = idTransaksi;
     }
 
-    public String getIdPaket() {
+    public Long getIdPaket() {
         return idPaket;
     }
 
-    public void setIdPaket(String idPaket) {
+    public void setIdPaket(Long idPaket) {
         this.idPaket = idPaket;
     }
 

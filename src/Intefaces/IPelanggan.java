@@ -12,11 +12,6 @@ import java.util.ArrayList;
  *
  * @author Rahmat Subekti
  */
-public interface IPelanggan {
-    public boolean save(Pelanggan pelanggan);
-    public boolean delete(String idPelanggan);
-    public boolean update(Pelanggan pelanggan);
-    public Pelanggan getPelangganById(String idPelanggan);
+public interface IPelanggan extends IBase<Pelanggan>{
     public ArrayList<Pelanggan> getPelangganByName(String namaPelanggan);
-    public ArrayList<Pelanggan> getAll();
 }

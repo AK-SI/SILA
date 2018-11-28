@@ -45,7 +45,7 @@ public class DFCariPaket extends javax.swing.JDialog {
         
         listPaket.stream().forEach((data) -> {
             dtmPaket.addRow(new Object[]{
-                data.getIdPaket(),
+                data.getId(),
                 data.getNamaPaket(),
                 data.getTarif(),
                 data.getSatuan()
@@ -122,7 +122,7 @@ public class DFCariPaket extends javax.swing.JDialog {
         Double jumlah = Double.parseDouble(JOptionPane.showInputDialog("Masukkan Jumlah Berat:"));
         Tr.jumlah = jumlah;
         Tr.paket = new PaketLaundry(
-                tblPaket.getValueAt(baris, 0).toString(),
+                Long.parseLong(tblPaket.getValueAt(baris, 0).toString()),
                 tblPaket.getValueAt(baris, 1).toString(),
                 Integer.parseInt(tblPaket.getValueAt(baris, 2).toString()),
                 tblPaket.getValueAt(baris, 3).toString()

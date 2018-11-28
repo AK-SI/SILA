@@ -5,21 +5,17 @@
  */
 package Models;
 
-import Implements.ImDetailTransaksi;
-import Implements.ImPaketLaundry;
-import Implements.ImPelanggan;
-import Implements.ImTransaksi;
+import Implements.*;
 import Intefaces.IDetailTransaksi;
 import Intefaces.IPaketLaundry;
 import Intefaces.IPelanggan;
 import Intefaces.ITransaksi;
-import java.io.Serializable;
 
 /**
  *
  * @author su
  */
-public class Laundry implements Serializable{
+public class Laundry extends ModelBase{
     
     private IPaketLaundry paket;
     private IPelanggan pelanggan;
@@ -27,10 +23,10 @@ public class Laundry implements Serializable{
     private IDetailTransaksi detail;
 
     public Laundry() {
-        this.paket = new ImPaketLaundry();
-        this.pelanggan = new ImPelanggan();
-        this.transaksi = new ImTransaksi();
-        this.detail = new ImDetailTransaksi();
+        this.paket = new PaketLaundryImpl();
+        this.pelanggan = new PelangganImpl();
+        this.transaksi = new TransaksiImpl();
+        this.detail = new DetailTransaksiImpl();
     }
 
     public IPaketLaundry getPaket() {

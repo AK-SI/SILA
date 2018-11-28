@@ -107,12 +107,12 @@ public class FrmBatalTransaksi extends javax.swing.JFrame {
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         // TODO add your handling code here:
-        String id = txtID.getText();
-        Transaksi transaksi = factory.getTransaksiDAO().getTransaksiByID(id);
+        Long id = Long.parseLong(txtID.getText());
+        Transaksi transaksi = factory.getTransaksiDAO().getById(id);
         if (transaksi != null) {
+            Long idPelanggan = transaksi.getIdPelanggan();
             String tanggalTransaksi = transaksi.getTanggal().toString(),
-                    idPelanggan = transaksi.getIdPelanggan(),
-                    namaPelanggan = factory.getPelangganDAO().getPelangganById(idPelanggan).getNama();
+                    namaPelanggan = factory.getPelangganDAO().getById(idPelanggan).getNama();
             if (JOptionPane.showConfirmDialog(this, "Hapus Transaksi pelanggan "+namaPelanggan+
                     " pada tanggal "+ tanggalTransaksi + "?", 
                     "Batalkan", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {

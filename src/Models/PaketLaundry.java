@@ -5,40 +5,32 @@
  */
 package Models;
 
-import static Factory.GenId.GenId;
-import java.io.Serializable;
-
 /**
  *
  * @author Rahmat Subekti
  */
-public class PaketLaundry implements Serializable{
-    private String idPaket;
+public class PaketLaundry extends ModelBase{
     private String namaPaket;
     private int tarif;
     private String satuan;
 
-    public PaketLaundry(String idPaket, String namaPaket, int tarif, String satuan) {
-        this.idPaket = idPaket;
-        this.namaPaket = namaPaket;
-        this.tarif = tarif;
-        this.satuan = satuan;
+    public PaketLaundry() {
     }
 
     public PaketLaundry(String namaPaket, int tarif, String satuan) {
-        this.idPaket = "PA"+ GenId();
+        super();
         this.namaPaket = namaPaket;
         this.tarif = tarif;
         this.satuan = satuan;
     }
 
-    public PaketLaundry() {
+    public PaketLaundry(Long id,String namaPaket, int tarif, String satuan) {
+        super(id);
+        this.namaPaket = namaPaket;
+        this.tarif = tarif;
+        this.satuan = satuan;
     }
     
-    public String getIdPaket() {
-        return idPaket;
-    }
-
     public String getNamaPaket() {
         return namaPaket;
     }
@@ -62,6 +54,5 @@ public class PaketLaundry implements Serializable{
     public void setSatuan(String satuan) {
         this.satuan = satuan;
     }
-    
     
 }
