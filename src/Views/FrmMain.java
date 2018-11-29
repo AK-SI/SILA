@@ -25,6 +25,7 @@ public class FrmMain extends javax.swing.JFrame {
     public FrmMain() {
         initComponents();
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        showFrmTransaksi();
     }
     
     FrmAbout about;
@@ -38,6 +39,36 @@ public class FrmMain extends javax.swing.JFrame {
             about.moveToFront();
             about.setSelected(true);
             about.show();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private FrmTransaksi transaksi;
+    private void showFrmTransaksi(){
+        try {
+            // TODO add your handling code here:
+            if (transaksi == null || transaksi.isVisible()) {
+               transaksi = new FrmTransaksi(this);
+                mainPane.add(transaksi);
+            }
+            transaksi.moveToFront();
+            transaksi.setSelected(true);
+            transaksi.show();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private FrmManual manual;
+    private void showFrmManual(){
+        try {
+            // TODO add your handling code here:
+            if (manual == null || manual.isVisible()) {
+               manual = new FrmManual();
+                mainPane.add(manual);
+            }
+            manual.moveToFront();
+            manual.setSelected(true);
+            manual.show();
         } catch (PropertyVetoException ex) {
             Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,8 +97,8 @@ public class FrmMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -122,6 +153,11 @@ public class FrmMain extends javax.swing.JFrame {
         jMenu1.setText("Help");
 
         mnManual.setText("Manual");
+        mnManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnManualActionPerformed(evt);
+            }
+        });
         jMenu1.add(mnManual);
 
         mnAbout.setText("About");
@@ -148,6 +184,7 @@ public class FrmMain extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private FrmPaket paket;
     private void mnIPaketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnIPaketActionPerformed
@@ -180,27 +217,10 @@ public class FrmMain extends javax.swing.JFrame {
             Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mnIPelangganActionPerformed
-    private FrmTransaksi transaksi;
     private void mnITransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnITransaksiActionPerformed
         // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            if (transaksi == null || transaksi.isVisible()) {
-               transaksi = new FrmTransaksi(this);
-                mainPane.add(transaksi);
-            }
-            transaksi.moveToFront();
-            transaksi.setSelected(true);
-            transaksi.show();
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(FrmMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        showFrmTransaksi();
     }//GEN-LAST:event_mnITransaksiActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        main.Close();
-    }//GEN-LAST:event_formWindowClosed
     private FrmRekapTransaksi rekap;
     private void mnIRekapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnIRekapActionPerformed
         // TODO add your handling code here:
@@ -239,6 +259,16 @@ public class FrmMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         showFrmAbout();
     }//GEN-LAST:event_mnAboutActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        main.Close();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void mnManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnManualActionPerformed
+        // TODO add your handling code here:
+        showFrmManual();
+    }//GEN-LAST:event_mnManualActionPerformed
 
     /**
      * @param args the command line arguments
