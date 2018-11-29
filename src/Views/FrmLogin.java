@@ -91,7 +91,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         if (txtUserName.getText().equals("admin") && new String(txtPassword.getPassword()).equals("admin")) {
-            FrmDashboard d = new FrmDashboard();
+            FrmMain d = new FrmMain();
             d.setVisible(true);
             this.dispose();
         }else{

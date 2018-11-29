@@ -7,20 +7,22 @@ package Views;
 
 import Factory.Factory;
 import Models.Transaksi;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Rahmat Subekti
+ * @author su
  */
-public class FrmBatalTransaksi extends javax.swing.JFrame {
-    private Factory factory;
+public class FrmBatalTransaksi extends javax.swing.JInternalFrame {
+
+    private Factory f;
     /**
      * Creates new form FrmBatalTransaksi
      */
-    public FrmBatalTransaksi() {
+    public FrmBatalTransaksi(JFrame parent) {
         initComponents();
-        factory = new Factory();
+        f = ((FrmMain)parent).main;
     }
 
     /**
@@ -37,13 +39,26 @@ public class FrmBatalTransaksi extends javax.swing.JFrame {
         txtID = new javax.swing.JTextField();
         btnBatal = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setType(java.awt.Window.Type.UTILITY);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+        setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
         });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tulis No.Nota Untuk Membatalkan"));
 
         jLabel1.setText("ID Transaksi");
 
@@ -62,7 +77,7 @@ public class FrmBatalTransaksi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBatal)
                 .addContainerGap())
@@ -82,83 +97,41 @@ public class FrmBatalTransaksi extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        factory.Close();
-        this.dispose();
-    }//GEN-LAST:event_formWindowClosed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
         // TODO add your handling code here:
         Long id = Long.parseLong(txtID.getText());
-        Transaksi transaksi = factory.getTransaksiDAO().getById(id);
+        Transaksi transaksi = f.getTransaksiDAO().getById(id);
         if (transaksi != null) {
             Long idPelanggan = transaksi.getIdPelanggan();
             String tanggalTransaksi = transaksi.getTanggal().toString(),
-                    namaPelanggan = factory.getPelangganDAO().getById(idPelanggan).getNama();
+            namaPelanggan = f.getPelangganDAO().getById(idPelanggan).getNama();
             if (JOptionPane.showConfirmDialog(this, "Hapus Transaksi pelanggan "+namaPelanggan+
-                    " pada tanggal "+ tanggalTransaksi + "?", 
-                    "Batalkan", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-                factory.getDetailDAO().delete(id);
-                factory.getTransaksiDAO().delete(id);
-            }
+                " pada tanggal "+ tanggalTransaksi + "?",
+                "Batalkan", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+            f.getDetailDAO().delete(id);
+            f.getTransaksiDAO().delete(id);
+        }
         }else{
             JOptionPane.showMessageDialog(this, "Transaksi dengan id:"+id+" tidak ditemukan atau telah dihapus");
         }
-        
+
     }//GEN-LAST:event_btnBatalActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmBatalTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmBatalTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmBatalTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmBatalTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // TODO add your handling code here:
+        f.Close();
+    }//GEN-LAST:event_formInternalFrameClosed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmBatalTransaksi().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;

@@ -6,6 +6,7 @@
 package Implements;
 
 import Intefaces.IBase;
+import Models.Laundry;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,7 +16,6 @@ import java.util.ArrayList;
  * @param <T>
  */
 class BaseImpl<T> implements IBase<T>,Serializable{
-
     protected ArrayList<T> rows = new ArrayList<>();
     
     @Override
@@ -25,18 +25,18 @@ class BaseImpl<T> implements IBase<T>,Serializable{
 
     @Override
     public boolean delete(Long id) {
-        int i=0,ketemu=-1;
+        int i=0,index=-1;
         ArrayList<Integer> listIndex = new ArrayList<>();
         for(T object:rows){
             if (object.toString().equals(id.toString())) {
                 listIndex.add(i);
-                ketemu=i;
+                index=i;
             }
             i++;
         }
-        if (ketemu !=-1){
-            for (Object index:listIndex) {
-                this.rows.remove((int)index);
+        if (index !=-1){
+            for (Object item:listIndex) {
+                this.rows.remove((int)item);
             }
             return true;
         }
@@ -45,16 +45,17 @@ class BaseImpl<T> implements IBase<T>,Serializable{
 
     @Override
     public boolean update(T object) {
-        int index =0, i=0,ketemu=0;
+        int index =-1, i=0;
         for (T o:rows) {
             if (o.toString().equals(object.toString())) {
                 index=i;
-                ketemu = 1;
+                break;
             }
             i++;
         }
-        if (ketemu !=0){
+        if (index !=-1){
             this.rows.set(index, object);
+            
             return true;
         }
         return false;
