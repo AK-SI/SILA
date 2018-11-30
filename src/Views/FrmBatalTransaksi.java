@@ -132,7 +132,6 @@ public class FrmBatalTransaksi extends javax.swing.JInternalFrame {
         f.Close();
     }//GEN-LAST:event_formInternalFrameClosed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;
     private javax.swing.JLabel jLabel1;

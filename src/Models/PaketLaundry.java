@@ -15,6 +15,7 @@ public class PaketLaundry extends ModelBase{
     private String satuan;
 
     public PaketLaundry() {
+        super();
     }
 
     public PaketLaundry(String namaPaket, int tarif, String satuan) {

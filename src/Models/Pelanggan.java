@@ -15,6 +15,7 @@ public class Pelanggan extends ModelBase{
     private String alamat;
 
     public Pelanggan() {
+        super();
     }
 
     public Pelanggan(String nama, String noTelpon, String alamat) {
