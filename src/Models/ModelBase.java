@@ -33,12 +33,14 @@ class ModelBase implements Serializable{
     }
     
     private Long GenId() {
-        Date date = new Date();
-        int max = date.getSeconds(), 
+            Date date = new Date();
+        Integer max = date.getSeconds(), 
             min =1,
             rand =(int)(Math.random()*((max-min)+1))+min;
         SimpleDateFormat ft = new SimpleDateFormat ("yyDDDSSSSkkmmss");
-        return Long.parseLong(ft.format(date)+(rand<10?rand*10:rand));
+        Integer hash = this.hashCode()*max.hashCode()+rand*max;
+        Long temp =Long.parseLong(ft.format(date)) - hash;
+        return temp/2 - (hash*rand);
     }
 
     @Override

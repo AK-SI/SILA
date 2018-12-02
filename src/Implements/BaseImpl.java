@@ -34,7 +34,7 @@ class BaseImpl<T> implements IBase<T>,Serializable{
             }
             i++;
         }
-        if (index !=-1){
+        if (index >-1){
             for (Object item:listIndex) {
                 this.rows.remove((int)item);
             }
@@ -53,7 +53,7 @@ class BaseImpl<T> implements IBase<T>,Serializable{
             }
             i++;
         }
-        if (index !=-1){
+        if (index >-1){
             this.rows.set(index, object);
             
             return true;

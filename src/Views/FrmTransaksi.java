@@ -146,9 +146,11 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
     }
     
     private void refreshTableNota(){
+        DefaultTableModel dtmDetail = (DefaultTableModel) tblNota.getModel();
+        dtmDetail.setRowCount(0);
+        
         listDetail.stream().forEach((d) -> {
             PaketLaundry p=factory.getPaketDAO().getById(d.getIdPaket());
-            DefaultTableModel dtmDetail = (DefaultTableModel) tblNota.getModel();
             dtmDetail.addRow(new Object[]{
                 p.getNamaPaket(),
                 d.getJumlah()+" "+ p.getSatuan(),
@@ -170,7 +172,6 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         dNota.setLocationRelativeTo(this);
         refreshTableNota();
         dNota.setVisible(true);
-        refreshTableNota();
     }
     
     private void clearText(){
@@ -181,7 +182,7 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         dtmDetail.setRowCount(0);
         lblTotal.setText("Rp.0");
         btnCheckout.setEnabled(false);        
-        listDetail.removeAll(listDetail);
+        listDetail.clear();
         totalHarga=0;
         pelanggan = new Pelanggan();
 
@@ -209,8 +210,8 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         
         printNota();
         
-        clearText();
         refreshTableTransaksi();
+        clearText();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -786,7 +787,7 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
             }
             i++;
         }
-        if (index!=-1) listDetail.remove(index);
+        if (index>-1) listDetail.remove(index);
         this.totalHarga-= Double.parseDouble(tblDetail.getValueAt(baris, 4).toString());
         lblTotal.setText("Rp."+totalHarga);
         dtmDetail.removeRow(baris);
@@ -820,8 +821,7 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         Double jumlahHarga = jumlah * tarif;
         
         //tambah ke list
-        DetailTransaksi detail = new DetailTransaksi(idPaket,jumlah, jumlahHarga);
-        listDetail.add(detail);
+        listDetail.add(new DetailTransaksi(idPaket,jumlah, jumlahHarga));
         
         //stambah ke tabel
         dtmDetail.addRow(new Object[]{
@@ -843,7 +843,7 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int baris;
         baris = tblPelanggan.getSelectedRow();
-        pelanggan = new Pelanggan(
+        this.pelanggan = new Pelanggan(
             Long.parseLong(tblPelanggan.getValueAt(baris, 0).toString()),
             tblPelanggan.getValueAt(baris, 1).toString(),
             tblPelanggan.getValueAt(baris, 2).toString(),
