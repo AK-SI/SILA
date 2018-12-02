@@ -6,7 +6,6 @@
 package Implements;
 
 import Intefaces.IBase;
-import Models.Laundry;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -16,11 +15,23 @@ import java.util.ArrayList;
  * @param <T>
  */
 class BaseImpl<T> implements IBase<T>,Serializable{
+    
+    ImLaundry<T> il = new ImLaundry<>();
     protected ArrayList<T> rows = new ArrayList<>();
+    
+
+    public BaseImpl() {
+        if (!il.isEmpty()) {
+            rows = il.Get();
+        }
+    }
+    
     
     @Override
     public boolean save(T object) {
-        return rows.add(object);
+        boolean it= rows.add(object);
+        il.Set(rows);
+        return it;
     }
 
     @Override
@@ -38,6 +49,7 @@ class BaseImpl<T> implements IBase<T>,Serializable{
             for (Object item:listIndex) {
                 this.rows.remove((int)item);
             }
+            il.Set(rows);
             return true;
         }
         return false;
@@ -56,6 +68,7 @@ class BaseImpl<T> implements IBase<T>,Serializable{
         if (index !=-1){
             this.rows.set(index, object);
             
+            il.Set(rows);
             return true;
         }
         return false;

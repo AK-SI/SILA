@@ -5,7 +5,11 @@
  */
 package Factory;
 
+import Implements.DetailTransaksiImpl;
 import Implements.ImLaundry;
+import Implements.PaketLaundryImpl;
+import Implements.PelangganImpl;
+import Implements.TransaksiImpl;
 import Models.Laundry;
 import Intefaces.IDetailTransaksi;
 import Intefaces.IPaketLaundry;
@@ -19,18 +23,16 @@ import Models.Transaksi;
  * @author Rahmat Subekti
  */
 public class Factory{
-    private Laundry data;
     private IPaketLaundry paketDAO;
     private IPelanggan pelangganDAO;
     private ITransaksi transaksiDAO;
     private IDetailTransaksi detailDAO;
 
     public Factory() {
-        this.data= new ImLaundry().Read();
-        this.paketDAO = data.getPaket();
-        this.pelangganDAO = data.getPelanggan();
-        this.transaksiDAO = data.getTransaksi();
-        this.detailDAO = data.getDetail();
+        this.paketDAO = new PaketLaundryImpl();
+        this.pelangganDAO = new PelangganImpl();
+        this.transaksiDAO = new TransaksiImpl();
+        this.detailDAO = new DetailTransaksiImpl();
     }
 
     public IDetailTransaksi getDetailDAO() {
@@ -59,6 +61,6 @@ public class Factory{
     }
     
     public void Close(){
-        new ImLaundry().Save(data);
+        
     }
 }

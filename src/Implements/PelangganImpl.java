@@ -16,9 +16,7 @@ import java.util.ArrayList;
 public class PelangganImpl extends BaseImpl<Pelanggan> implements IPelanggan  {
 
     public PelangganImpl() {
-        rows.add(new Pelanggan("Fulan","081111111111","jl.satu"));
-        rows.add(new Pelanggan("Dito","082222222222","jl.dua"));
-        rows.add(new Pelanggan("Ratno","0833333333","jl.tiga"));
+        super();
     }
 
     @Override

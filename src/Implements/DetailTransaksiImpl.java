@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class DetailTransaksiImpl extends BaseImpl<DetailTransaksi> implements IDetailTransaksi{
 
     public DetailTransaksiImpl() {
+        super();
     }
     
     @Override

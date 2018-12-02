@@ -5,60 +5,42 @@
  */
 package Models;
 
-import Implements.*;
-import Intefaces.IDetailTransaksi;
-import Intefaces.IPaketLaundry;
-import Intefaces.IPelanggan;
-import Intefaces.ITransaksi;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 /**
  *
  * @author su
  */
 public class Laundry extends ModelBase{
-    
-    private IPaketLaundry paket;
-    private IPelanggan pelanggan;
-    private ITransaksi transaksi;
-    private IDetailTransaksi detail;
+    private HashMap<String, ArrayList<Object>> data = new HashMap<>();
 
-    public Laundry() {
-        this.paket = new PaketLaundryImpl();
-        this.pelanggan = new PelangganImpl();
-        this.transaksi = new TransaksiImpl();
-        this.detail = new DetailTransaksiImpl();
-    }
-
-    public IPaketLaundry getPaket() {
-        return paket;
-    }
-
-    public void setPaket(IPaketLaundry paket) {
-        this.paket = paket;
-    }
-
-    public IPelanggan getPelanggan() {
-        return pelanggan;
-    }
-
-    public void setPelanggan(IPelanggan pelanggan) {
-        this.pelanggan = pelanggan;
-    }
-
-    public ITransaksi getTransaksi() {
-        return transaksi;
-    }
-
-    public void setTransaksi(ITransaksi transaksi) {
-        this.transaksi = transaksi;
-    }
-
-    public IDetailTransaksi getDetail() {
-        return detail;
-    }
-
-    public void setDetail(IDetailTransaksi detail) {
-        this.detail = detail;
+    public Laundry(){
+        ArrayList<Object> pelanggan = new ArrayList<>();
+        Collections.addAll(pelanggan, 
+            new Pelanggan("Fulan","081111111111","jl.satu"),
+            new Pelanggan("Dito","082222222222","jl.dua"),
+            new Pelanggan("Ratno","0833333333","jl.tiga")
+        );
+        
+        ArrayList<Object> paket = new ArrayList<>();
+        Collections.addAll(paket, 
+            new PaketLaundry("Rapi",5000,"kg"),
+            new PaketLaundry("Rapi dan Wangi",7000,"kg"),
+            new PaketLaundry("Cuci Kering",4000,"kg"),
+            new PaketLaundry("Setrika",2000,"kg")
+        );
+        
+        data.put(pelanggan.get(0).getClass().getSimpleName(), pelanggan);
+        data.put(paket.get(0).getClass().getSimpleName(), paket);
     }
     
+    public ArrayList<Object> getData(String type) {
+        return data.get(type);
+    }
+
+    public void setData(String type , ArrayList<Object> o) {
+        data.put(type,o);
+    }
 }

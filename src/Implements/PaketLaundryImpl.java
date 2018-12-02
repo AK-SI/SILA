@@ -16,10 +16,7 @@ import java.util.ArrayList;
 public class PaketLaundryImpl extends BaseImpl<PaketLaundry> implements IPaketLaundry {
 
     public PaketLaundryImpl() {
-        rows.add(new PaketLaundry("Rapi",5000,"kg"));
-        rows.add(new PaketLaundry("Rapi dan Wangi",7000,"kg"));
-        rows.add(new PaketLaundry("Cuci Kering",4000,"kg"));
-        rows.add(new PaketLaundry("Setrika",2000,"kg"));
+        super();
     }
 
     @Override
