@@ -6,7 +6,6 @@
 package Implements;
 
 import Intefaces.IBase;
-import Models.Laundry;
 import java.io.Serializable;
 import java.util.ArrayList;
 

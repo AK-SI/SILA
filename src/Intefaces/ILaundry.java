@@ -13,7 +13,7 @@ import Models.Laundry;
  */
 public interface ILaundry {
     
-    public void Save(Laundry l);
+    public void Save();
     public Laundry Read();
     public boolean isLaundry();
 }

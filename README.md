@@ -47,7 +47,7 @@
 
 2. Kita akan memiliki kumpulan object untuk di kelola. Di **Folder Interfaces** ini berisi kumpulan interface class yang masing-masing mendeklarasikan fungsi yang akan di buat untuk mengelola kumpulan object kita berdasarkan tipe/**model** yang telah kita buat di **Folder Model**. fungsi-fungsi tersebut nantinya akan diimplementasikan di class pada **folder Implements**. 
 
-    Tujuan kita membuat interface ini adalah untuk mengabtraksi fungsi yang mengelola kumpulan object yang kita buat. Jadi di form kita tidak memanggil Fungsi tersebut secara tidak langsung tapi melalui interface (jika menggunakan database). disini akan sedikit berbeda.
+    Tujuan kita membuat interface ini adalah untuk mengabtraksi fungsi yang mengelola kumpulan object yang kita buat. Jadi di form kita tidak memanggil Fungsi tersebut secara langsung tapi melalui interface (jika menggunakan database). disini akan sedikit berbeda.
 
 3. **Folder Implements** berisi class yang mengimplementasikan fungsi - fungsi yang di deklarasikan pada interface yang kita buat. Tentunya berdasarkan tipe data(model) yang kita buat.
 

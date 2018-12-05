@@ -20,9 +20,14 @@ import java.io.ObjectOutputStream;
  * @author su
  */
 public class ImLaundry implements ILaundry{
+    private Laundry l;
 
+    public ImLaundry() {
+        this.l = Open();
+    }
+    
     @Override
-    public void Save(Laundry l) {
+    public void Save() {
         try {
             // write object to file
             FileOutputStream fos = new FileOutputStream("data.laundry");
@@ -44,6 +49,10 @@ public class ImLaundry implements ILaundry{
 
     @Override
     public Laundry Read() {
+        return this.l;
+    }
+    
+    private Laundry Open() {
         Laundry data=new Laundry();
         if (isLaundry()) {
             try {
@@ -62,5 +71,4 @@ public class ImLaundry implements ILaundry{
         }
         return data;
     }
-    
 }
