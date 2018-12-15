@@ -8,9 +8,12 @@ package Intefaces;
 import Models.Pelanggan;
 import java.util.ArrayList;
 
+
 /**
- *
- * @author Rahmat Subekti
+ * Mewarisi interface class IBase
+ * Menggunakan parameter Pelanggan sebagai tipe datanya atau
+ * modelnya untuk menyesuaikan tipe data pada super class
+ * 
  */
 public interface IPelanggan extends IBase<Pelanggan>{
     public ArrayList<Pelanggan> getPelangganByName(String namaPelanggan);

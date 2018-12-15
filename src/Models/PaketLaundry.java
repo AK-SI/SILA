@@ -5,19 +5,26 @@
  */
 package Models;
 
+
 /**
- *
- * @author Rahmat Subekti
+ * class ini akan mewarisi class ModelBase 
  */
 public class PaketLaundry extends ModelBase{
     private String namaPaket;
     private int tarif;
     private String satuan;
-
+    
+    
+    /**
+     * Memanggil super constructor untuk membuat id secara otomatis
+     */
     public PaketLaundry() {
         super();
     }
 
+    /**
+     * Memanggil super constructor untuk membuat id secara otomatis
+     */
     public PaketLaundry(String namaPaket, int tarif, String satuan) {
         super();
         this.namaPaket = namaPaket;

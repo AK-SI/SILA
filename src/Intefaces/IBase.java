@@ -8,8 +8,11 @@ package Intefaces;
 import java.util.ArrayList;
 
 /**
- *
- * @author su
+ * generic Base interface untuk logic aplikasi
+ * interface class untuk mengabstaksi method (Logic aplikasi)
+ * Mengunakan parameter untuk menyesuaikan dengan tipe data 
+ * atau model yang digunakan 
+ * 
  * Object
  * @param <T>
  */

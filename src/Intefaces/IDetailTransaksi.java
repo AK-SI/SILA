@@ -9,8 +9,10 @@ import Models.DetailTransaksi;
 import java.util.ArrayList;
 
 /**
- *
- * @author Rahmat Subekti
+ * Mewarisi interface class IBase
+ * Menggunakan parameter DetailTransaksi sebagai tipe datanya atau
+ * modelnya untuk menyesuaikan tipe data pada super class
+ * 
  */
 public interface IDetailTransaksi extends IBase<DetailTransaksi> {
     public ArrayList<DetailTransaksi> getDetail(Long idTransaksi);

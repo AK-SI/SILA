@@ -12,8 +12,7 @@ import Intefaces.IPelanggan;
 import Intefaces.ITransaksi;
 
 /**
- *
- * @author su
+ * class ini akan mewarisi class ModelBase 
  */
 public class Laundry extends ModelBase{
     

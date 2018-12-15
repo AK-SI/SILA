@@ -10,11 +10,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ * Generic Base class untuk mengimplementasikan logic dari setiap method
+ * yang umum atau sering digunakan sehingga tidak perlu menulis method yang
+ * sama berulang ulang untuk setiap tipe data yang berbeda
+ * 
+ * class ini mengimplementasikan generic interface IBase<T>
+ * 
+ * disini juga mengimplementasikan class Serializable karena kita tidak menggunakan 
+ * database. Jadi nantinya setiap class turunan dapat di proses melalui i/o stream
+ * 
+ * parameter sesuai tipe data atau entity atau model 
+ * yang akan buat logic-nya
+ * 
  * @author su
  * @param <T>
  */
 class BaseImpl<T> implements IBase<T>,Serializable{
+    /**
+     * menggunakan arraylist sesuai tipe atau model (T)
+     * untuk menyimpan data list data object tertentu
+     * 
+     * list ini dapat di ekspose ke class turunan dan class lain di 
+     * dalam paackage yang sama
+     */
     protected ArrayList<T> rows = new ArrayList<>();
     
     @Override
@@ -22,6 +40,12 @@ class BaseImpl<T> implements IBase<T>,Serializable{
         return rows.add(object);
     }
 
+    /**
+     * Menghapus object T dari list
+     * 
+     * @param id
+     * @return 
+     */
     @Override
     public boolean delete(Long id) {
         int i=0,index=-1;

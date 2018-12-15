@@ -8,9 +8,12 @@ package Intefaces;
 import Models.Transaksi;
 import java.util.ArrayList;
 
+
 /**
- *
- * @author Rahmat Subekti
+ * Mewarisi interface class IBase
+ * Menggunakan parameter Transaksi sebagai tipe datanya atau
+ * modelnya untuk menyesuaikan tipe data pada super class
+ * 
  */
 public interface ITransaksi extends IBase<Transaksi>{
     public ArrayList<Transaksi> getTransaksiByIDPelanggan(Long idPelanggan);

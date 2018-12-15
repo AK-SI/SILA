@@ -14,10 +14,16 @@ public class Pelanggan extends ModelBase{
     private String noTelpon;
     private String alamat;
 
+    /**
+     * Memanggil super constructor untuk membuat id secara otomatis
+     */
     public Pelanggan() {
         super();
     }
 
+    /**
+     * Memanggil super constructor untuk membuat id secara otomatis
+     */
     public Pelanggan(String nama, String noTelpon, String alamat) {
         super();
         this.nama = nama;
@@ -25,6 +31,13 @@ public class Pelanggan extends ModelBase{
         this.alamat = alamat;
     }
 
+    /**
+     * Optional untuk mengkopi object dari satu lokasi atau variabel ke variabel lain
+     * @param id
+     * @param nama
+     * @param noTelpon
+     * @param alamat
+     */
     public Pelanggan(Long id,String nama, String noTelpon, String alamat) {
         super(id);
         this.nama = nama;

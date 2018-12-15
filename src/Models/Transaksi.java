@@ -22,6 +22,9 @@ public class Transaksi extends ModelBase{
         this.tanggal  = new Date();
     }
 
+    /**
+     * Memanggil super constructor untuk membuat id secara otomatis
+     */
     public Transaksi() {
         super();
     }

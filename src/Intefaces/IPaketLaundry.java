@@ -8,9 +8,12 @@ package Intefaces;
 import Models.PaketLaundry;
 import java.util.ArrayList;
 
+
 /**
- *
- * @author Rahmat Subekti
+ * Mewarisi interface class IBase
+ * Menggunakan parameter PaketLaundry sebagai tipe datanya atau
+ * modelnya untuk menyesuaikan tipe data pada super class
+ * 
  */
 public interface IPaketLaundry extends IBase<PaketLaundry>{
     public ArrayList<PaketLaundry> getPaketByName(String namaPaket);

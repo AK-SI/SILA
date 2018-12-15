@@ -6,8 +6,7 @@
 package Models;
 
 /**
- *
- * @author Rahmat Subekti
+ * class ini akan mewarisi class ModelBase 
  */
 public class DetailTransaksi extends ModelBase {
     Long idTransaksi;
