@@ -781,16 +781,21 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int index=-1,i=0,baris = tblDetail.getSelectedRow();
         for (DetailTransaksi d:listDetail) {
-            if (d.getIdPaket().equals(tblDetail.getValueAt(baris, 0).toString())) {
-                index=i;
+            if (d.getIdPaket().toString().equals(tblDetail.getValueAt(baris, 0).toString())) {
+                index = i;
                 break;
             }
             i++;
         }
         if (index>-1) listDetail.remove(index);
+        System.out.println(index);
         this.totalHarga-= Double.parseDouble(tblDetail.getValueAt(baris, 4).toString());
         lblTotal.setText("Rp."+totalHarga);
         dtmDetail.removeRow(baris);
+        
+        if (listDetail.isEmpty()) {
+            btnCheckout.setEnabled(false);
+        }
 
     }//GEN-LAST:event_btnHapusActionPerformed
 
