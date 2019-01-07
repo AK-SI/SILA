@@ -11,6 +11,7 @@ import Models.PaketLaundry;
 import Models.Pelanggan;
 import Models.Transaksi;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
@@ -71,42 +72,42 @@ public class FrmRekapTransaksi extends javax.swing.JInternalFrame {
         listPelanggan = factory.getPelangganDAO().getPelangganByName(txtCari.getText());
         DefaultTableModel dtmPelanggan = (DefaultTableModel) tblPelanggan.getModel();
         dtmPelanggan.setRowCount(0);
-        
-        listPelanggan.stream().forEach((data) -> {
+        for (Pelanggan data: listPelanggan) {
             dtmPelanggan.addRow(new Object[]{
                 data.getId(),
                 data.getNama(),
                 data.getNoTelpon()
             });
-        });
+            
+        }
     }
     private void refreshTabelTransaksi(Long idPelanggan){
         listTransaksi = factory.getTransaksiDAO().getTransaksiByIDPelanggan(idPelanggan);
         DefaultTableModel dtmTransaksi = (DefaultTableModel) tblTransaksi.getModel();
         dtmTransaksi.setRowCount(0);
         
-        listTransaksi.stream().forEach((data) -> {
+        for (Transaksi data:listTransaksi ) {
             dtmTransaksi.addRow(new Object[]{
                 data.getId(),
                 data.getTanggal(),
                 data.getTotalHarga()
             });
-        });
+            
+        }
         
     }
     private void refreshTabelDetail(Long idTransaksi){
         listDetail = factory.getDetailDAO().getDetail(idTransaksi);
         DefaultTableModel dtmDetail = (DefaultTableModel) tblDetail.getModel();
         dtmDetail.setRowCount(0);
-        
-        listDetail.stream().forEach((d) -> {
-            PaketLaundry paket = this.factory.getPaketDAO().getById(d.getIdPaket());
+        for (DetailTransaksi d:listDetail) {
+            PaketLaundry paket = FrmRekapTransaksi.this.factory.getPaketDAO().getById(d.getIdPaket());
             dtmDetail.addRow(new Object[]{
                 paket.getNamaPaket(),
                 d.getJumlah()+" "+paket.getSatuan(),
                 d.getJumlahHarga()
             });
-        });
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,13 +37,16 @@ public class FrmPaket extends javax.swing.JInternalFrame {
         initComponents();
         initTablePaket();
         factory = ((FrmMain)parent).main;
-        tblPaket.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
-            baris = tblPaket.getSelectedRow();
-            if (baris>=0) {
-                txtId.setText(dtmPaket.getValueAt(baris, 0).toString());
-                txtNama.setText(dtmPaket.getValueAt(baris, 1).toString());
-                txtTarif.setText(dtmPaket.getValueAt(baris, 2).toString());
-                txtSatuan.setText(dtmPaket.getValueAt(baris, 3).toString());
+        tblPaket.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                baris = tblPaket.getSelectedRow();
+                if (baris>=0) {
+                    txtId.setText(dtmPaket.getValueAt(baris, 0).toString());
+                    txtNama.setText(dtmPaket.getValueAt(baris, 1).toString());
+                    txtTarif.setText(dtmPaket.getValueAt(baris, 2).toString());
+                    txtSatuan.setText(dtmPaket.getValueAt(baris, 3).toString());
+                }
             }
         });
         refreshIsiTable();

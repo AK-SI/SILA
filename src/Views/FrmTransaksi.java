@@ -102,15 +102,15 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         listTransaksi = transaksiDAO.getAll();
         dtmTransaksi = (DefaultTableModel) tblTransaksi.getModel();
         dtmTransaksi.setRowCount(0);
-        
-        listTransaksi.stream().forEach((d) -> {
+        for (Transaksi d: listTransaksi) {
             pelanggan = factory.getPelangganDAO().getById(d.getIdPelanggan());            
             dtmTransaksi.addRow(new Object[]{
                 d.getTanggal(),
                 pelanggan.getNama(),
                 d.getTotalHarga()
             });
-        });
+            
+        }
     }
     
     
@@ -119,46 +119,43 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         listPaket = paketDAO.getPaketByName(txtCariPaket.getText());
         DefaultTableModel dtmPaket = (DefaultTableModel) tblPaket.getModel();
         dtmPaket.setRowCount(0);
-        
-        listPaket.stream().forEach((data) -> {
+        for (PaketLaundry data:listPaket) {
             dtmPaket.addRow(new Object[]{
                 data.getId(),
                 data.getNamaPaket(),
                 data.getTarif(),
                 data.getSatuan()
             });
-        });
+            
+        }
     }
     
     private void refreshTablePelanggan(){
         listPelanggan = factory.getPelangganDAO().getPelangganByName(txtCariPelanggan.getText());
         DefaultTableModel dtmPelanggan = (DefaultTableModel) tblPelanggan.getModel();
         dtmPelanggan.setRowCount(0);
-        
-        listPelanggan.stream().forEach((data) -> {
+        for (Pelanggan data: listPelanggan) {
             dtmPelanggan.addRow(new Object[]{
                 data.getId(),
                 data.getNama(),
                 data.getNoTelpon(),
                 data.getAlamat()
             });
-        });
+            
+        }
     }
     
     private void refreshTableNota(){
         DefaultTableModel dtmDetail = (DefaultTableModel) tblNota.getModel();
         dtmDetail.setRowCount(0);
-        
-        listDetail.stream().forEach((d) -> {
+        for (DetailTransaksi d:listDetail) {
             PaketLaundry p=factory.getPaketDAO().getById(d.getIdPaket());
             dtmDetail.addRow(new Object[]{
                 p.getNamaPaket(),
                 d.getJumlah()+" "+ p.getSatuan(),
                 d.getJumlahHarga()
             });
-        });
-        
-        
+        }
     }
     
     private void printNota(){
@@ -565,7 +562,7 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setBackground(new java.awt.Color(95, 113, 211));
+        setBackground(new java.awt.Color(0, 0, 102));
         setBorder(null);
         setClosable(true);
 
@@ -587,6 +584,11 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         txtID.setEnabled(false);
 
         txtNama.setBorder(null);
+        txtNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamaActionPerformed(evt);
+            }
+        });
 
         txtTelpon.setBorder(null);
 
@@ -668,7 +670,7 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(156, 156, 156)
                                 .addComponent(jLabel5)))
-                        .addGap(0, 2, Short.MAX_VALUE))
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnTambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -803,9 +805,10 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(379, 379, 379)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -931,6 +934,11 @@ public class FrmTransaksi extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dNota.setVisible(false);
     }//GEN-LAST:event_clsNotaMouseClicked
+
+    private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBatal;

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,13 +36,16 @@ public class FrmPelanggan extends javax.swing.JInternalFrame {
         initComponents();
         factory = ((FrmMain)parent).main;
         initTablePelanggan();
-        tblPelanggan.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
-            baris = tblPelanggan.getSelectedRow();
-            if (baris>=0) {
-                txtId.setText(dtmPelanggan.getValueAt(baris, 0).toString());
-                txtNama.setText(dtmPelanggan.getValueAt(baris, 1).toString());
-                txtTelpon.setText(dtmPelanggan.getValueAt(baris, 2).toString());
-                txtAlamat.setText(dtmPelanggan.getValueAt(baris, 3).toString());
+        tblPelanggan.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                baris = tblPelanggan.getSelectedRow();
+                if (baris>=0) {
+                    txtId.setText(dtmPelanggan.getValueAt(baris, 0).toString());
+                    txtNama.setText(dtmPelanggan.getValueAt(baris, 1).toString());
+                    txtTelpon.setText(dtmPelanggan.getValueAt(baris, 2).toString());
+                    txtAlamat.setText(dtmPelanggan.getValueAt(baris, 3).toString());
+                }
             }
         });
         refreshIsiTable();
